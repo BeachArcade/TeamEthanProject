@@ -7,17 +7,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 
-import twitter4j.*;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.Authorization;
-import twitter4j.auth.RequestToken;
-import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.util.function.Consumer;
 
 import java.io.*;
-import java.lang.reflect.Constructor;
-import java.util.*;
 
 /**
  * Alternative class to Tweet Gatherer using the Streaming API
