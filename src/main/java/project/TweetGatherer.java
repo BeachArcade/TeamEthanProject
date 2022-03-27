@@ -34,7 +34,7 @@ public class TweetGatherer {
 
     private void getOldUsers() {
         try{
-            BufferedReader buf = new BufferedReader(new FileReader("VaxData/users.txt"));
+            BufferedReader buf = new BufferedReader(new FileReader("VaxData/vax user tweets.txt"));
             String lineJustFetched = null;
             String[] wordsArray;
             while(true){

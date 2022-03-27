@@ -14,7 +14,7 @@ import java.io.*;
 /**
  * Alternative class to Tweet Gatherer using the Streaming API
  *
- * @author Ethan Chan
+ * @author Ethan Chan & Ethan Hammond
  * @version 1.0
  */
 
