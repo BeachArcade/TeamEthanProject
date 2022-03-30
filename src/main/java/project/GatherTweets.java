@@ -18,7 +18,7 @@ import java.io.*;
  * @version 1.0
  */
 
-//!TODO write to respective files
+//!TODO make different output files for different groups?
 public class GatherTweets {
 
 
@@ -53,10 +53,6 @@ public class GatherTweets {
         //Create filters
         FilterQuery filterQuery = new FilterQuery(properties.getProperty("allTags"));
         filterQuery.language("en");
-
-        //add Time Stamp to file for debug purposes
-        tweetWriter.append("New Fetch Cycle started at: " + System.currentTimeMillis());
-        userWriter.append("New Fetch Cycle started at: " + System.currentTimeMillis());
 
         //Collect tweets
         twitterStream.filter(filterQuery);
