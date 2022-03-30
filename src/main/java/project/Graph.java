@@ -8,6 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Graph interface
+ *
+ * @author Ethan Hammond
+ * @version 1.0
+ */
+
 public interface Graph {
     //public void getNode();
     public void getEdges();
