@@ -1,14 +1,19 @@
 package project;
 
 import org.w3c.dom.Node;
+import sun.security.provider.certpath.Vertex;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface Graph {
-    public void getNode();
+    //public void getNode();
     public void getEdges();
     public void invert();
-    private ArrayList<Node> children;
+
+    Map<Vertex, List<Arc>> adjVertices = new HashMap <Vertex, List<Arc>>();
 
 
 }
