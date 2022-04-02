@@ -24,7 +24,7 @@ class ReaderTest {
   }
 
   @Test
-  void nextInt(){
+  void nextLong(){
     long l = 1447357947466506244L;
     assert (reader.nextLong() == l);
   }
