@@ -25,14 +25,13 @@ public class TwitterGraph implements Graph{
     }
     //Overloaded method to map a single retweet
     public void add(Vertex user, Arc retweet){
-       if(adjVertices.containsKey(user))
-           adjVertices.get(user).add(retweet);
-       else{
-           ArrayList<Arc> list= new ArrayList<Arc>();
-           list.add(retweet);
-           adjVertices.put(user, list);
-       }
+        if(adjVertices.get(user) == null){
+            ArrayList<Arc> list = new ArrayList<>();
+
+            adjVertices.put(user,)
+        }
     }
+}
 
     @Override
     public void remove(Vertex user) {
@@ -46,16 +45,18 @@ public class TwitterGraph implements Graph{
 
     }
 
+    /* Format:
+        retweeter{retweeted users,...}
+     */
     public String toString(){
         String str = "";
-        for(Map.Entry entry: adjVertices.entrySet()){
-            str += entry.getKey() + ": ";
-            for(Arc arc :(List<Arc>)entry.getValue()){
-                str += arc.toString() + ",";
+        for(Map.Entry<Vertex, List<Arc>> entry: adjVertices.entrySet()){
+            str += entry.getKey().getName() + "\t{";
+            for(Arc arc: entry.getValue()){
+                str += arc.getVertex().getName()+",";
             }
-            str += "\n";
+            str += "}\n";
         }
         return str;
-
     }
 }
