@@ -1,7 +1,6 @@
 package project;
 
 import org.w3c.dom.Node;
-import sun.security.provider.certpath.Vertex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +15,18 @@ import java.util.Map;
  */
 
 public interface Graph {
-    //public void getNode();
-    public void getEdges();
+    //TODO: What to return? map or vector
+    public void getVertex(Vertex user);
+
+    public List<Arc> getEdges(Vertex user);
+
     public void invert();
 
-    Map<Vertex, List<Arc>> adjVertices = new HashMap <Vertex, List<Arc>>();
+    public void add(Vertex user, List<Arc> retweets);
+
+    public void remove(Vertex user);
+
+    Map<Vertex, List<Arc>> adjVertices = new HashMap<Vertex, List<Arc>>();
 
 
 }
