@@ -9,7 +9,7 @@ public class SearchTweets {
 //        TweetGatherer tweetGatherer = new TweetGatherer();
 //        tweetGatherer.startQuery();
 
-        GatherTweets gatherTweets = new GatherTweets();
+//        GatherTweets gatherTweets = new GatherTweets();
 
     }
 }
