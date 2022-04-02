@@ -53,6 +53,12 @@
                 <artifactId>twitter4j-stream</artifactId>
                 <version>${twitter4j-stream.version}</version>
             </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>RELEASE</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
 
 
