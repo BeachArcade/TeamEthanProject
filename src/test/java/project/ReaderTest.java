@@ -2,7 +2,6 @@ package project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +9,7 @@ class ReaderTest {
 
   Reader tweetReader;
   Reader userReader;
+  Reader graphReader;
 
   @BeforeEach
   void setUp() throws FileNotFoundException {
@@ -17,6 +17,7 @@ class ReaderTest {
     tweetReader = new Reader(tweetsFile);
     File usersFile = new File("VaxData/100VaxUsersTweets.txt");
     userReader = new Reader(usersFile);
+    graphReader = new Reader(new File("VaxData/Sprint3/Graphs/outputFile.txt"));
   }
 
   @Test
@@ -57,5 +58,4 @@ class ReaderTest {
       }
     }
   }
-
 }

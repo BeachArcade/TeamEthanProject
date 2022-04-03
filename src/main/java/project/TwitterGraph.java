@@ -15,6 +15,7 @@ import java.util.Map;
 
 // !default direction is Up
 public class TwitterGraph implements Graph {
+
   private final HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<Vertex, List<TweetArc>>();
   private final boolean direction = true; // true == up
 
@@ -24,12 +25,19 @@ public class TwitterGraph implements Graph {
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
-    System.out.println(this);
+  }
+
+  public HashMap<Vertex, List<TweetArc>> getAdjVertices() {
+    return adjVertices;
+  }
+
+  public boolean getDirection() {
+    return direction;
   }
 
   @Override
   public void getVertex(Vertex user) {
-    System.out.println("");
+    System.out.println();
   }
 
   @Override
@@ -47,13 +55,17 @@ public class TwitterGraph implements Graph {
 
   }
 
-  /** Maps a user with its retweets */
+  /**
+   * Maps a user with its retweets
+   */
   @Override
   public void add(Vertex user, List<?> retweets) {
     adjVertices.put(user, (List<TweetArc>) retweets);
   }
 
-  /** Overloaded method to map a single retweet */
+  /**
+   * Overloaded method to map a single retweet
+   */
   public void add(String userStr, String retweetStr) {
     Vertex user = new Vertex(userStr);
     TweetArc retweet = new TweetArc(retweetStr);
@@ -75,7 +87,10 @@ public class TwitterGraph implements Graph {
       adjVertices.get(user).add(retweet);
     }
   }
-  /** Adds a single vertex to the hashmap with an empty list of Arcs to the graph */
+
+  /**
+   * Adds a single vertex to the hashmap with an empty list of Arcs to the graph
+   */
   public void add(String user) {
     if (!adjVertices.containsKey(new Vertex(user))) {
       adjVertices.put(new Vertex(user), new ArrayList<>());

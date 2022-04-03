@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -76,9 +78,18 @@ public class Reader {
         twitterGraph.add(user);
       }
     }
-
   }
 
-
+  /**
+   * This reads a previously saved graph file and then passes the input to create a graph
+   */
+  public void loadGraph(TwitterGraph twitterGraph){
+    String line;
+    while((line = nextLine()) != null){
+      String[] str = line.split("\t");
+      List<String> list = Arrays.asList(str[1].replace("{", "").replace("}", "").split(","));
+      twitterGraph.add(new Vertex(str[0]), list);
+    }
+  }
 }
 
