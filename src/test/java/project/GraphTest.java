@@ -89,6 +89,11 @@ public class GraphTest {
 
   @Test
   public void testGet(){
-    HashMap<Vertex, String>
+    HashMap<Vertex, String> map = new HashMap<>();
+    Vertex v = new Vertex("Tweet 1");
+    map.put(v,"Hello!");
+
+    Vertex v2 = new Vertex("Tweet 1");
+    System.out.println(map.get(new Vertex("Tweet 1")));
   }
 }

@@ -69,24 +69,16 @@ public class TwitterGraph implements Graph {
         Yes? increase strength.
         No? add it to the empty list
     */
-    System.out.println("\nContains\n");
     if (adjVertices.get(user).contains(retweet)) {
-      System.out.println("\n\n"+adjVertices.get(user));
       adjVertices.get(user).get(adjVertices.get(user).indexOf(retweet)).increaseStrength();
     } else {
-      System.out.println("\nElse\n"+adjVertices.get(user));
       adjVertices.get(user).add(retweet);
     }
   }
   /** Adds a single vertex to the hashmap with an empty list of Arcs to the graph */
   public void add(String user) {
     if (!adjVertices.containsKey(new Vertex(user))) {
-      ArrayList<TweetArc> newList = new ArrayList<>();
-      newList.add(new TweetArc("Something"));
-      adjVertices.put(new Vertex(user), newList);
-      System.out.println("Added " + user);
-      System.out.println(adjVertices.entrySet());
-      System.out.println(adjVertices.get(new Vertex(user)));
+      adjVertices.put(new Vertex(user), new ArrayList<>());
     }
   }
 
