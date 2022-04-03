@@ -16,10 +16,10 @@ public class Reader {
     bufferedReader = new BufferedReader(new FileReader(file));
   }
 
-  String next() {
+  public String next() {
     while (stringTokenizer == null || !stringTokenizer.hasMoreElements()) {
       try {
-        stringTokenizer = new StringTokenizer(bufferedReader.readLine(),"\t");
+        stringTokenizer = new StringTokenizer(bufferedReader.readLine(), "\t");
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -28,15 +28,15 @@ public class Reader {
   }
 
 
-  long nextLong() {
+  public long nextLong() {
     return Long.parseLong(next());
   }
 
-  String nextString() {
+  public String nextString() {
     return next();
   }
 
-  String nextLine() {
+  public String nextLine() {
     String str = "";
     try {
       str = bufferedReader.readLine();
@@ -45,5 +45,24 @@ public class Reader {
     }
     return str;
   }
+
+  /**
+   * This reads the vax users file and creates the vertices in the graph
+   */
+  public void populateUsers() {
+    String line;
+    while ((line = nextLine()) != null) {
+      String user = line.split("\t")[0];
+    }
+
+  }
+
+  /**
+   * This reads the vax tweets file and creates the arcs between vertices
+   */
+  public void populateArcs() {
+  }
+
+
 }
 
