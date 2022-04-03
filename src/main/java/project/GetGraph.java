@@ -14,7 +14,8 @@ public class GetGraph {
     System.out.println("3.) Load Graph");
     System.out.println("4.) Load and invert graph");
 
-    if(args[0].equals("1")){
+
+    if(args[0].equals("1") ){
         TwitterGraph twitterGraph = new TwitterGraph();
         Writer write = new Writer(new File(args[1]));
         write.writeToFile(twitterGraph);

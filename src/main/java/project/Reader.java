@@ -67,17 +67,27 @@ public class Reader {
   public void populateArcs(TwitterGraph twitterGraph) {
     String line;
     while ((line = nextLine()) != null) {
-      String user = line.split("\t")[1];
-      String content = line.split("\t")[2];
-      if (content.startsWith("RT")) {
-        String retweededUser = content.split(":", 0)[0];
-        retweededUser = retweededUser.substring(3);
-        twitterGraph.add(user, retweededUser);
-      } else {
-        //if there is no RT, just add new tweet to graph
-        twitterGraph.add(user);
+      if (lineCheck(line)) {
+        String user = line.split("\t")[1];
+        String content = line.split("\t")[2];
+        if (content.startsWith("RT")) {
+          String retweededUser = content.split(":", 0)[0];
+          if(retweededUser.length() > 3){
+            retweededUser = retweededUser.substring(3);
+            twitterGraph.add(user, retweededUser);
+          } else
+            twitterGraph.add(user);
+        } else {
+          // if there is no RT, just add new tweet to graph
+          twitterGraph.add(user);
+        }
       }
     }
+  }
+
+  private boolean lineCheck(String line) {
+    String[] split = line.split("\t");
+    return split.length > 2;
   }
 
   /**
