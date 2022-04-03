@@ -1,12 +1,8 @@
-package test;
-
-import org.junit.Test;
-import project.*;
+package project;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class GraphTest {
   private String[] arr = {

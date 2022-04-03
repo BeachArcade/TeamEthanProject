@@ -62,7 +62,21 @@ public class Reader {
   /**
    * This reads the vax tweets file and creates the arcs between vertices
    */
-  public void populateArcs() {
+  public void populateArcs(TwitterGraph twitterGraph) {
+    String line;
+    while ((line = nextLine()) != null) {
+      String user = line.split("\t")[1];
+      String content = line.split("\t")[2];
+      if (content.startsWith("RT")) {
+        String retweededUser = content.split(":", 0)[0];
+        retweededUser = retweededUser.substring(3);
+        //TODO call method from TwitterGraph
+      } else {
+        //if there is no RT, just add new tweet to graph
+        twitterGraph.add(user);
+      }
+    }
+
   }
 
 

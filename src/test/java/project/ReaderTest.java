@@ -2,38 +2,59 @@ package project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Objects;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ReaderTest {
-  File file;
-  Reader reader;
+
+  Reader tweetReader;
+  Reader userReader;
 
   @BeforeEach
   void setUp() throws FileNotFoundException {
-    file = new File("VaxData/100VaxTweets.txt");
-    reader = new Reader(file);
+    File tweetsFile = new File("VaxData/100VaxTweets.txt");
+    tweetReader = new Reader(tweetsFile);
+    File usersFile = new File("VaxData/100VaxUsersTweets.txt");
+    userReader = new Reader(usersFile);
   }
 
   @Test
-  void nextLine(){
-    String line = reader.nextLine();
+  void nextLine() {
+    String line = tweetReader.nextLine();
     System.out.println(line);
-    assert (line.equals("1447357947466506244\t@VishnuFNO\tRT @djlange: Millions across the world are now protesting against the introduction of a Vax digital ID passport app.  If you don't understa…"));
+    assert (line.equals(
+        "1447357947466506244\t@VishnuFNO\tRT @djlange: Millions across the world are now protesting against the introduction of a Vax digital ID passport app.  If you don't understa…"));
   }
 
   @Test
-  void nextLong(){
+  void nextLong() {
     long l = 1447357947466506244L;
-    assert (reader.nextLong() == l);
+    assert (tweetReader.nextLong() == l);
   }
 
   @Test
-  void next(){
+  void next() {
     String line;
-    while((line = reader.next()) != null){
-      System.out.println(line);
+    while ((line = userReader.nextLine()) != null) {
+      System.out.println(line.split("\t")[0]);
+    }
+    assert (true);
+  }
+
+  @Test
+  void getUsersFromVaxTweets() {
+    String line;
+    while ((line = tweetReader.nextLine()) != null) {
+      String user = line.split("\t")[1];
+      String content = line.split("\t")[2];
+      if (content.startsWith("RT")) {
+        String retweededUser = content.split(":", 0)[0];
+        retweededUser = retweededUser.substring(3);
+        System.out.println(user + " " + retweededUser);
+      } else {
+        System.out.println(user);
+      }
     }
   }
 
