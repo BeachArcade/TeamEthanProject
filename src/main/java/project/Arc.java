@@ -7,10 +7,7 @@ package project;
  * @version 1.0
  */
 
-public interface Arc {
-
-    public String getTweetName();
-
+public interface Arc extends Comparable<Arc> {
     public String getVertex();
 
     public int strength();

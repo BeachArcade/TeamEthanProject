@@ -1,4 +1,4 @@
-package project;
+package test.java.project;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.util.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import project.TwitterGraph;
+import project.Writer;
 
 class WriterTest {
   Writer writer;

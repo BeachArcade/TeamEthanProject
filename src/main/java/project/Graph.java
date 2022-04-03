@@ -17,7 +17,7 @@ public interface Graph {
 
     public List<TweetArc> getEdges(Vertex user);
 
-    public Graph invert();
+    public void invert();
 
     public void add(Vertex user, List<?> retweets);
 

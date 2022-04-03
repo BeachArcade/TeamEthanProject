@@ -1,9 +1,14 @@
-package project;
+package test.java.project;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
+import project.Arc;
+import project.TweetArc;
+import project.TwitterGraph;
+import project.Vertex;
 
 public class GraphTest {
   private String[] arr = {
@@ -26,20 +31,6 @@ public class GraphTest {
     "1447376589679902720	@AcidoBlamOK	#plandemia #covid1984 #DictaduraSanitaria  22/22 VIDEO COMPLETO https://t.co/ieTT5O1iE5",
     "1447376627474710535	@TanziaMill	@BkPhilanthropy #GetVaxxed"
   };
-
-//  @Test
-//  // Filter Method is in TestingIO
-//  public void testFilter() {
-//    TestingIO filter = new TestingIO();
-//    int i = 0;
-//
-//    for (String str : arr) {
-//      if (filter.filterRT(str)) {
-//        Vertex v = new Vertex(str);
-//        System.out.println(i++ + ": " + v.getName() + " " + v.getContent());
-//      }
-//    }
-//  }
 
   @Test
   public void testVertex() {
@@ -81,19 +72,35 @@ public class GraphTest {
   }
 
   @Test
-  public void test() throws FileNotFoundException {
+  public void testInvert() throws FileNotFoundException {
     TwitterGraph graph = new TwitterGraph();
-    System.out.println(graph.toString());
+    String str, str2 ,str3;
+    str = graph.toString();
+    graph.invert();
+    str2 = graph.toString();
+    graph.invert();
+    str3 = graph.toString();
+
+    System.out.println("Regular\n" + str + "\n");
+    System.out.println("Invert\n" + str2 + "\n");
+    System.out.println("Double Invert\n" + str3 + "\n");
+
+    assert(!str2.substring(0,1000).equals(str.substring(0,1000)));
+    assert(str3.substring(0,1000).equals(str.substring(0,1000)));
 
   }
 
   @Test
-  public void testGet(){
-    HashMap<Vertex, String> map = new HashMap<>();
-    Vertex v = new Vertex("Tweet 1");
-    map.put(v,"Hello!");
+  public void testSort(){
+    ArrayList<TweetArc> list = new ArrayList<>();
+    list.add(new TweetArc("Dog", 10));
+    list.add(new TweetArc("Cat", 9));
+    list.add(new TweetArc("Squirrel", 1));
+    list.add(new TweetArc("Mango", 2));
+    list.add(new TweetArc("Car", 3));
+    list.add(new TweetArc("Fish", 8));
 
-    Vertex v2 = new Vertex("Tweet 1");
-    System.out.println(map.get(new Vertex("Tweet 1")));
+    Collections.sort(list);
+    for (TweetArc arc : list) System.out.println(arc.getVertex());
   }
 }
