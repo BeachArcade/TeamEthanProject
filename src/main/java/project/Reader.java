@@ -55,7 +55,7 @@ public class Reader {
     String line;
     while ((line = nextLine()) != null) {
       String user = line.split("\t")[0];
-      twitterGraph.addVertex(user);
+      twitterGraph.add(user);
     }
   }
 

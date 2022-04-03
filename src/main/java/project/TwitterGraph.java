@@ -1,5 +1,7 @@
 package project;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 /*TODO: Add checks to see if the key exists
 *       Optimize loops
@@ -8,9 +10,16 @@ import java.util.*;
 *       
 * */
 public class TwitterGraph implements Graph{
-
     private HashMap<Vertex, List<Arc>> adjVertices = new HashMap <Vertex, List<Arc>>();
 
+    //TODO Change filepaths
+    public TwitterGraph() throws FileNotFoundException {
+        Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt"));
+        Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
+
+        userReader.populateUsers(this);
+        System.out.println(this.toString());
+    }
     @Override
     //Return all edges of a given vertex
     public List<Arc> getEdges(Vertex user) {
@@ -23,23 +32,30 @@ public class TwitterGraph implements Graph{
 
     }
 
+
+    /**
+     * Maps a user with its retweets
+     */
     @Override
-    //Maps a user with its retweets
     public void add(Vertex user, List<Arc> retweets) {
         adjVertices.put(user, retweets);
     }
-    //Overloaded method to map a single retweet
+
+    /**
+     * Overloaded method to map a single retweet
+     */
     public void add(Vertex user, Arc retweet){
-        if(adjVertices.get(user) == null){
-            ArrayList<Arc> list = new ArrayList<>();
-            //adjVertices.put(user,)
+        if(adjVertices.get(user) == null){ //When user is not in the map
+            ArrayList<Arc> list = new ArrayList<Arc>();
+            list.add(retweet);
+            adjVertices.put(user, list);
         }
     }
     /**
      * Adds a single vertex to the hashmap with an empty list of Arcs to the graph
      */
-    public void addVertex(String user){
-        if(!adjVertices.containsKey(user)){
+    public void add(String user){
+        if(!adjVertices.containsKey(new Vertex(user))){
             adjVertices.put(new Vertex(user), new ArrayList<Arc>());
         }
 
