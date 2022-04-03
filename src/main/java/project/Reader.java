@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Reader {
@@ -49,12 +51,12 @@ public class Reader {
   /**
    * This reads the vax users file and creates the vertices in the graph
    */
-  public void populateUsers() {
+  public void populateUsers(TwitterGraph twitterGraph) {
     String line;
     while ((line = nextLine()) != null) {
       String user = line.split("\t")[0];
+      twitterGraph.addVertex(user);
     }
-
   }
 
   /**
