@@ -2,88 +2,112 @@ package project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /*TODO: Add checks to see if the key exists
-*       Optimize loops
-*       Add invert() method
-*       Possibly make an addEdge() method
-*       
-* */
-public class TwitterGraph implements Graph{
-    private HashMap<Vertex, List<Arc>> adjVertices = new HashMap <Vertex, List<Arc>>();
+ *       Optimize loops
+ *       Add invert() method
+ *       Possibly make an addEdge() method
+ *
+ * */
 
-    //TODO Change filepaths
-    public TwitterGraph() throws FileNotFoundException {
-        Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt"));
-        Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
+// !default direction is Up
+public class TwitterGraph implements Graph {
+  private final HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<Vertex, List<TweetArc>>();
+  private final boolean direction = true; // true == up
 
-        userReader.populateUsers(this);
-        System.out.println(this.toString());
+  public TwitterGraph() throws FileNotFoundException {
+    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt"));
+    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
+
+    userReader.populateUsers(this);
+    tweetReader.populateArcs(this);
+    System.out.println(this);
+  }
+
+  @Override
+  public void getVertex(Vertex user) {
+    System.out.println("");
+  }
+
+  @Override
+  // Return all edges of a given vertex
+  public List<TweetArc> getEdges(Vertex user) {
+    return adjVertices.get(user);
+  }
+
+  @Override
+  // Make vertexes for all the
+  public Graph invert() {
+    HashMap<Vertex, List<TweetArc>> invertMap = new HashMap<>();
+    //Get retweeters
+    return null;
+
+  }
+
+  /** Maps a user with its retweets */
+  @Override
+  public void add(Vertex user, List<?> retweets) {
+    adjVertices.put(user, (List<TweetArc>) retweets);
+  }
+
+  /** Overloaded method to map a single retweet */
+  public void add(String userStr, String retweetStr) {
+    Vertex user = new Vertex(userStr);
+    TweetArc retweet = new TweetArc(retweetStr);
+    // if the user doesnt exist create new entry
+    if (!adjVertices.containsKey(user)) {
+      add(userStr);
     }
-    @Override
-    //Return all edges of a given vertex
-    public List<Arc> getEdges(Vertex user) {
-        return adjVertices.get(user);
+    // if the retweeted user does not exist create new entry
+    if (!adjVertices.containsKey(new Vertex(retweetStr))) {
+      add(retweetStr);
     }
-
-    @Override
-    //Make vertexes for all the
-    public void invert() {
-
+    /* is retweeter in the user's arcs?
+        Yes? increase strength.
+        No? add it to the empty list
+    */
+    System.out.println("\nContains\n");
+    if (adjVertices.get(user).contains(retweet)) {
+      System.out.println("\n\n"+adjVertices.get(user));
+      adjVertices.get(user).get(adjVertices.get(user).indexOf(retweet)).increaseStrength();
+    } else {
+      System.out.println("\nElse\n"+adjVertices.get(user));
+      adjVertices.get(user).add(retweet);
     }
-
-
-    /**
-     * Maps a user with its retweets
-     */
-    @Override
-    public void add(Vertex user, List<Arc> retweets) {
-        adjVertices.put(user, retweets);
+  }
+  /** Adds a single vertex to the hashmap with an empty list of Arcs to the graph */
+  public void add(String user) {
+    if (!adjVertices.containsKey(new Vertex(user))) {
+      ArrayList<TweetArc> newList = new ArrayList<>();
+      newList.add(new TweetArc("Something"));
+      adjVertices.put(new Vertex(user), newList);
+      System.out.println("Added " + user);
+      System.out.println(adjVertices.entrySet());
+      System.out.println(adjVertices.get(new Vertex(user)));
     }
+  }
 
-    /**
-     * Overloaded method to map a single retweet
-     */
-    public void add(Vertex user, Arc retweet){
-        if(adjVertices.get(user) == null){ //When user is not in the map
-            ArrayList<Arc> list = new ArrayList<Arc>();
-            list.add(retweet);
-            adjVertices.put(user, list);
-        }
+  @Override
+  public void remove(Vertex user) {
+    adjVertices.remove(user);
+  }
+
+
+  /* Format:
+     retweeter{retweeted users,...}
+  */
+  public String toString() {
+    String str = "";
+    for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
+      str += entry.getKey().getName() + "\t{";
+      for (Arc arc : entry.getValue()) {
+        str += arc.getVertex() + ",";
+      }
+      str += "}\n";
     }
-    /**
-     * Adds a single vertex to the hashmap with an empty list of Arcs to the graph
-     */
-    public void add(String user){
-        if(!adjVertices.containsKey(new Vertex(user))){
-            adjVertices.put(new Vertex(user), new ArrayList<Arc>());
-        }
-
-    }
-    @Override
-    public void remove(Vertex user) {
-        adjVertices.remove(user);
-
-    }
-
-
-    @Override
-    public void getVertex(Vertex user){
-
-    }
-
-    /* Format:
-        retweeter{retweeted users,...}
-     */
-    public String toString(){
-        String str = "";
-        for(Map.Entry<Vertex, List<Arc>> entry: adjVertices.entrySet()){
-            str += entry.getKey().getName() + "\t{";
-            for(Arc arc: entry.getValue()){
-                str += arc.getVertex().getName()+",";
-            }
-            str += "}\n";
-        }
-        return str;
-    }
+    return str;
+  }
 }

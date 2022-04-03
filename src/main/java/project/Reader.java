@@ -70,7 +70,7 @@ public class Reader {
       if (content.startsWith("RT")) {
         String retweededUser = content.split(":", 0)[0];
         retweededUser = retweededUser.substring(3);
-        //TODO call method from TwitterGraph
+        twitterGraph.add(user, retweededUser);
       } else {
         //if there is no RT, just add new tweet to graph
         twitterGraph.add(user);

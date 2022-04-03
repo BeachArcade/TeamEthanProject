@@ -1,6 +1,7 @@
 package project;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
@@ -80,13 +81,14 @@ public class GraphTest {
   }
 
   @Test
-  public void test(){
-    HashMap<Vertex, Arc> map = new HashMap<>();
-    TweetArc arc = new TweetArc("Poop");
-    Vertex vert = new Vertex("ass");
-    TweetArc arc2 = new TweetArc("Poop");
-    Vertex vert2 = new Vertex("ass");
+  public void test() throws FileNotFoundException {
+    TwitterGraph graph = new TwitterGraph();
+    System.out.println(graph.toString());
 
-    System.out.println(vert.hashCode() + "  " + vert2.hashCode());
+  }
+
+  @Test
+  public void testGet(){
+    HashMap<Vertex, String>
   }
 }

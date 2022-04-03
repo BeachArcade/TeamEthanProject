@@ -1,8 +1,5 @@
 package project;
 
-import org.w3c.dom.Node;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +15,11 @@ public interface Graph {
     //TODO: What to return? map or vector
     public void getVertex(Vertex user);
 
-    public List<Arc> getEdges(Vertex user);
+    public List<TweetArc> getEdges(Vertex user);
 
-    public void invert();
+    public Graph invert();
 
-    public void add(Vertex user, List<Arc> retweets);
+    public void add(Vertex user, List<?> retweets);
 
     public void remove(Vertex user);
 

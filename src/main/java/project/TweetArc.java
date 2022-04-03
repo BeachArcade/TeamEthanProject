@@ -5,11 +5,14 @@ import java.util.StringTokenizer;
 public class TweetArc implements Arc {
 
   // TODO: Should this class contain the source?
-  private Vertex destVertex;
+  private String destVertex;
   // The number of times this tweet was retweeted
   private int strength;
 
-  public TweetArc(String content) {}
+  public TweetArc(String dest) {
+    this.destVertex = dest;
+    this.strength = 1;
+  }
 
   @Override
   public String getTweetName() {
@@ -17,7 +20,7 @@ public class TweetArc implements Arc {
   }
 
   @Override
-  public Vertex getVertex() {
+  public String getVertex() {
     return destVertex;
   }
 
@@ -26,7 +29,25 @@ public class TweetArc implements Arc {
     return strength;
   }
 
+
+
+  public void setDestVertex(String destVertex) {
+    this.destVertex = destVertex;
+  }
+
+  public int getStrength() {
+    return strength;
+  }
+
   public void increaseStrength() {
-    strength++;
+    setStrength(getStrength()+ 1);
+  }
+
+  public void setStrength(int i){
+    strength = i;
+  }
+
+  public boolean equals(String that){
+    return this.getVertex().equals(that);
   }
 }

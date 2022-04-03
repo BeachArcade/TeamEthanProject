@@ -11,7 +11,7 @@ public interface Arc {
 
     public String getTweetName();
 
-    public Vertex getVertex();
+    public String getVertex();
 
     public int strength();
 
