@@ -3,33 +3,16 @@ package project;
 import java.util.StringTokenizer;
 
 public class Vertex {
-  private int id;
-  private String name;
-  private String content;
+  private String user;
 
-  public Vertex(String tweetName, String tweetContent) {
-    this.name = tweetName;
-    this.content = tweetContent;
-  }
-  // Overload constructor for full tweet
-  public Vertex(String tweet) {
-    StringTokenizer tokenizer = new StringTokenizer(tweet, ("\t"));
-    // Skip ID
-    tokenizer.nextToken();
-    name = tokenizer.nextToken();
-    content = tokenizer.nextToken();
+  public Vertex(String tweetName) {
+    this.user = tweetName;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public String getContent() {
-    return content;
+    public String getName() {
+      return user;
+    }
   }
 
 
-  public boolean equals(Vertex v) {
-    return (v.getName().equals(name) && v.getContent().equals(content));
-  }
-}
+

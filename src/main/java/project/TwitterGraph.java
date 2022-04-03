@@ -1,7 +1,12 @@
 package project;
 
 import java.util.*;
-
+/*TODO: Add checks to see if the key exists
+*       Optimize loops
+*       Add invert() method
+*       Possibly make an addEdge() method
+*       
+* */
 public class TwitterGraph implements Graph{
 
     private HashMap<Vertex, List<Arc>> adjVertices = new HashMap <Vertex, List<Arc>>();
@@ -27,12 +32,18 @@ public class TwitterGraph implements Graph{
     public void add(Vertex user, Arc retweet){
         if(adjVertices.get(user) == null){
             ArrayList<Arc> list = new ArrayList<>();
-
-            adjVertices.put(user,)
+            //adjVertices.put(user,)
         }
     }
-}
+    /**
+     * Adds a single vertex to the hashmap with an empty list of Arcs to the graph
+     */
+    public void addVertex(String user){
+        if(!adjVertices.containsKey(user)){
+            adjVertices.put(new Vertex(user), new ArrayList<Arc>());
+        }
 
+    }
     @Override
     public void remove(Vertex user) {
         adjVertices.remove(user);
