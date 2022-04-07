@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
-import project.Arc;
-import project.TweetArc;
-import project.TwitterGraph;
-import project.Vertex;
+import project.*;
 
 public class GraphTest {
   private String[] arr = {
@@ -103,4 +100,19 @@ public class GraphTest {
     Collections.sort(list);
     for (TweetArc arc : list) System.out.println(arc.getVertex());
   }
+
+  @Test
+  public void sortTest() throws FileNotFoundException {
+    TwitterGraph graph = new TwitterGraph();
+    graph.sort();
+
+  }}
+
+/*
+addStance(int change) {
+  this.setStance(stance + change);
 }
+
+currentvertex.setStance(stance + change);
+
+ */

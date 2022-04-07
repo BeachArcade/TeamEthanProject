@@ -3,10 +3,11 @@ package project;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
-public class Vertex {
+public class Vertex implements Comparable{
 
   private final String user;
   private final int hashCode;
+  private int retweetNum;
 
   public Vertex(String tweetName) {
     this.user = tweetName;
@@ -32,6 +33,26 @@ public class Vertex {
   @Override
   public int hashCode() {
     return this.hashCode;
+  }
+
+  public void setRetweetNum(int n){
+    this.retweetNum = n;
+  }
+  public int getRetweetNum(){
+    return retweetNum;
+  }
+  public int compareTo(Vertex genericThat) {
+    if(genericThat.retweetNum > this.retweetNum) return 1;
+    else if (genericThat.retweetNum < this.retweetNum) return -1;
+    else return 0;
+  }
+
+  @Override
+  public int compareTo(Object o) {
+    if(o.getClass().equals(this.getClass())){
+      return this.compareTo((Vertex) o);
+    }
+    return 0;
   }
 }
 

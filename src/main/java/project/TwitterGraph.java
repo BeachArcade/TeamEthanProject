@@ -21,6 +21,8 @@ public class TwitterGraph implements Graph {
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
+
+    System.out.println("Graph successfully loaded");
   }
 
   public TwitterGraph(File input) throws FileNotFoundException {
@@ -48,6 +50,7 @@ public class TwitterGraph implements Graph {
   @Override
   // Make vertexes for all the
   public void invert() {
+    System.out.println("Inverting");
     HashMap<Vertex, List<TweetArc>> invertMap = new HashMap<>();
     // add all the users from original map
     for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
@@ -138,4 +141,51 @@ public class TwitterGraph implements Graph {
     return str;
   }
 
+  //TODO Make a method to grip the evangelists
+  public void getEvangelists(int n){
+    //Sort map for n evangelists
+    //Invert for retweeted graph
+    if(!this.direction){
+      this.invert();
+    }
+  }
+
+  //Strip non retweeters
+  public void stripNonRetweeters(){
+    for(Map.Entry<Vertex,List<TweetArc>> entry: adjVertices.entrySet()){
+      if(entry.getValue().size() < 1){
+        adjVertices.remove(entry.getKey());
+      }
+    }
+  }
+  public void sort(){
+    ArrayList<Vertex> list = new ArrayList<>();
+    int count = 0;
+    if (direction) {
+      System.out.println("Not Inverted: Inverting now");
+      invert();
+      }
+    for(Map.Entry<Vertex, List<TweetArc>> entry: adjVertices.entrySet()){
+      entry.getKey().setRetweetNum(entry.getValue().size());
+      list.add(entry.getKey());
+    }
+    Collections.sort(list);
+    for(int i = 0; i < 100; i++){
+      System.out.println(list.get(i).getName() + "\t\t" + list.get(i).getRetweetNum());
+    }
+
+
+  }
+
 }
+
+/*
+ *  public void percolate(Vertex[] evangelists)
+ *    go thru hashmap and get the values of all evangelists
+ *      add stance of evangelist to retweeter (Stance += stance/retweet#)
+ *
+ *
+ */
+
+
+
