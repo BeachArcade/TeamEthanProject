@@ -1,11 +1,12 @@
 package project;
 
 import java.util.Objects;
-import java.util.StringTokenizer;
+//import java.util.StringTokenizer;
 
 public class Vertex implements Comparable{
 
   private final String user;
+  private int stance = 0;
   private final int hashCode;
   private int retweetNum;
 
@@ -17,6 +18,12 @@ public class Vertex implements Comparable{
   public String getName() {
     return user;
   }
+
+  public int getStance() { return stance; }
+
+  public void setStance( int x ){ this.stance = x; }
+
+  public void changeStance( int change ) { this.setStance( this.getStance() + change); }
 
   @Override
   public boolean equals(Object o) {
