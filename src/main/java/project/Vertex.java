@@ -1,11 +1,12 @@
 package project;
 
 import java.util.Objects;
-import java.util.StringTokenizer;
+//import java.util.StringTokenizer;
 
 public class Vertex {
 
   private final String user;
+  private int stance = 0;
   private final int hashCode;
 
   public Vertex(String tweetName) {
@@ -16,6 +17,10 @@ public class Vertex {
   public String getName() {
     return user;
   }
+
+  public int getStance() { return stance; }
+
+  public void setStance( int x ){ this.stance = x; }
 
   @Override
   public boolean equals(Object o) {
