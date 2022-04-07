@@ -22,6 +22,8 @@ public class Vertex {
 
   public void setStance( int x ){ this.stance = x; }
 
+  public void changeStance( int change ) { this.setStance( this.getStance() + change); }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
