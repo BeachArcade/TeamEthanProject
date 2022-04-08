@@ -101,5 +101,12 @@ public class Reader {
       twitterGraph.add(new Vertex(str[0]), list);
     }
   }
+
+  public ArrayList<String> getTweets(Vertex user){
+    String line, userStr;
+    while((line = nextLine()) != null){
+
+    }
+  }
 }
 

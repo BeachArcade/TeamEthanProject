@@ -2,6 +2,7 @@ package project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 /*TODO: Add checks to see if the key exists
  *       Optimize loops
@@ -141,15 +142,6 @@ public class TwitterGraph implements Graph {
     return str;
   }
 
-  //TODO Make a method to grip the evangelists
-  public void getEvangelists(int n){
-    //Sort map for n evangelists
-    //Invert for retweeted graph
-    if(!this.direction){
-      this.invert();
-    }
-  }
-
   //Strip non retweeters
   public void stripNonRetweeters(){
     for(Map.Entry<Vertex,List<TweetArc>> entry: adjVertices.entrySet()){
@@ -170,13 +162,29 @@ public class TwitterGraph implements Graph {
       list.add(entry.getKey());
     }
     Collections.sort(list);
-    for(int i = 0; i < 100; i++){
-      System.out.println(list.get(i).getName() + "\t\t" + list.get(i).getRetweetNum());
-    }
-
-
   }
 
+  //Overloaded sort to return
+  public ArrayList<Vertex> getEvangelists(int n){
+    ArrayList<Vertex> list = new ArrayList<>();
+    int count = 0;
+    if (direction) {
+      System.out.println("Not Inverted: Inverting now");
+      invert();
+    }
+    for(Map.Entry<Vertex, List<TweetArc>> entry: adjVertices.entrySet()){
+      entry.getKey().setRetweetNum(entry.getValue().size());
+      list.add(entry.getKey());
+    }
+    Collections.sort(list);
+
+    ArrayList<Vertex> newList= new ArrayList<>();
+    for(int i = 0; i < n; i++){
+      newList.add(list.get(i));
+    }
+
+    return newList;
+  }
 }
 
 /*
@@ -186,6 +194,7 @@ public class TwitterGraph implements Graph {
  *
  *
  */
+
 
 
 
