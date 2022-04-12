@@ -58,8 +58,10 @@ class ReaderTest {
       }
     }
   }
+
   @Test
-  public void test(){
+  public void test() {
     Integer.parseInt("121ss");
 
-  }}
+  }
+}
