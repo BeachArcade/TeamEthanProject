@@ -21,7 +21,7 @@ public class Writer {
     }
     for (Map.Entry<Vertex, List<TweetArc>> entry : twitterGraph.getAdjVertices().entrySet()) {
       StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append(entry.getKey().getName()).append("\t{");
+      stringBuilder.append(entry.getKey().getName()).append("\t").append(entry.getKey().getCalculatedStance()).append("\t{");
       for (TweetArc arc : entry.getValue()) {
         stringBuilder.append(arc.getVertex()).append(" ").append(arc.getStrength()).append(",");
       }
