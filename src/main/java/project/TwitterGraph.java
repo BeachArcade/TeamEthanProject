@@ -129,9 +129,13 @@ public class TwitterGraph implements Graph {
   public TwitterGraph() throws FileNotFoundException {
     Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
     Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
+//    Reader userReader= new Reader(new File("VaxData/100VaxUsersTweets.txt"));
+//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
+
+    percolate();
 
     System.out.println("Graph successfully loaded");
   }
@@ -190,6 +194,11 @@ public class TwitterGraph implements Graph {
     direction = !direction;
   }
 
+  public void add(Vertex user, int stance, List<?> retweets){
+    user.setStance(stance);
+    add(user, retweets);
+  }
+
   /**
    * Maps a user with its retweets
    */
@@ -205,7 +214,7 @@ public class TwitterGraph implements Graph {
   public void add(String userStr, String retweetStr) {
     Vertex user = new Vertex(userStr);
     TweetArc retweet = new TweetArc(retweetStr);
-    // if the user doesnt exist create new entry
+    // if the user doesn't exist create new entry
     if (!adjVertices.containsKey(user)) {
       add(userStr);
     }
@@ -244,15 +253,15 @@ public class TwitterGraph implements Graph {
      retweeter{retweeted users,...}
   */
   public String toString() {
-    String str = "";
+    StringBuilder str = new StringBuilder();
     for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
-      str += entry.getKey().getName() + "\t{";
+      str.append(entry.getKey().getName()).append("\t{");
       for (TweetArc arc : entry.getValue()) {
-        str += arc.getVertex() + " " + arc.getStrength() + ",";
+        str.append(arc.getVertex()).append(" ").append(arc.getStrength()).append(",");
       }
-      str += "}\n";
+      str.append("}\n");
     }
-    return str;
+    return str.toString();
   }
 
   //Strip non retweeters
@@ -299,15 +308,39 @@ public class TwitterGraph implements Graph {
 
     return newList;
   }
+
+  /**
+   * This method percolates the evangelists stances through the graph
+   */
+  public void percolate() {
+    for (int i = 0; i < 4; i++) {
+      for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
+        // Check if the vertex belongs to an evangelist;
+        if (evangelists.containsKey(entry.getKey().getName())) {
+          entry.getKey().setStance(evangelists.get(entry.getKey().getName()));
+        } else {
+          // Update the stance and the retweet num for each arc
+          for (TweetArc tweetArc : entry.getValue()) {
+            Vertex destVertex = adjVertices.keySet().stream()
+                .filter(vertex -> vertex.equals(new Vertex(tweetArc.getVertex()))).findFirst()
+                .get();
+            entry.getKey().changeStance(destVertex.getStance() * tweetArc.getStrength());
+            entry.getKey().setRetweetNum(entry.getKey().getRetweetNum() + tweetArc.getStrength());
+          }
+        }
+        System.out.println(entry.getKey().getName()+"\t"+entry.getKey().getCalculatedStance());
+      }
+    }
+  }
+
 }
 
 /*
  *  public void percolate(Vertex[] evangelists)
  *    go thru hashmap and get the values of all evangelists
  *      add stance of evangelist to retweeter (Stance += stance/retweet#)
- *
- *
  */
+
 
 
 
