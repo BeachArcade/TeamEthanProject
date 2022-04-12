@@ -104,9 +104,13 @@ public class Reader {
 
   public ArrayList<String> getTweets(Vertex user){
     String line, userStr;
+    ArrayList<String> list = new ArrayList<>();
     while((line = nextLine()) != null){
-
+      if(line.contains(user.getName())){
+        list.add(line);
+      }
     }
+    return list;
   }
 }
 
