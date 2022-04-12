@@ -2,8 +2,11 @@ package project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /*TODO: Add checks to see if the key exists
  *       Optimize loops
  *       Add invert() method
@@ -13,52 +16,115 @@ import java.util.*;
 
 // !default direction is Up
 public class TwitterGraph implements Graph {
-  private HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<Vertex, List<TweetArc>>();
-  private boolean direction = true; // true == up
 
   // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
-  private HashMap<String, Integer> evangelists = new HashMap<String, Integer>() {
+  private final HashMap<String, Integer> evangelists = new HashMap<String, Integer>() {
     {
-
       // Add keys and values (username, stance)
-      put("@BernieSpofforth", -1);
-      put("@JamesMelville", -1);
-      put("@jackjohnsoniv7", 1);
-      put("@GillianMcKeith", -1);
-      put("@RealCandaceO", -1);
-      put("@EssexPR", -1);
-      put("@alanvibe", -1);
-      put("@ginacarano", -1);
-      put("@Togetherdec", -1);
-      put("@catturd2", -1);
-      put("@org_scp", -1);
-      put("@BananaMediaQ", -1);
-      put("@EU_Commission", 1);
-      put("@JamesfWells", -1);
-      put("@LozzaFox", -1);
-      put("@djlange", -1);
-      put("@gbrough10", -1);
-      put("@greenhousemd", 1);
-      put("@TonyHinton2016", -1);
-      put("@CaoimhinFachtna", -1);
-      put("@atensnut", -1);
-      put("@ToniaBuxton", -1);
-      put("@RealJamesWoods", -1);
-      put("@profnfenton", -1);
-      put("@VigilantFox", -1);
-      put("@Karenlovecheese", 1);
-      put("@mrjamesob", 1);
-      put("@HumanRights4UK", -1);
-      put("@PeterDooleyDUB", 1);
-      put("@BKarahalios", -1);
-      put("@DrHoenderkamp", -1);
-      put("@RWMaloneMD", -1);
-      put("@davidkurten", -1);
-      put("@kernaghanscott5", -1);
-      put("@danjgregory", -1);
-
+      put("@BernieSpofforth", -1000);
+      put("@JamesMelville", -1000);
+      put("@jackjohnsoniv7", 1000);
+      put("@GillianMcKeith", -1000);
+      put("@RealCandaceO", -1000);
+      put("@EssexPR", -1000);
+      put("@alanvibe", -1000);
+      put("@ginacarano", -1000);
+      put("@Togetherdec", -1000);
+      put("@catturd2", -1000);
+      put("@org_scp", -1000);
+      put("@BananaMediaQ", -1000);
+      put("@EU_Commission", 1000);
+      put("@JamesfWells", -1000);
+      put("@LozzaFox", -1000);
+      put("@djlange", -1000);
+      put("@gbrough10000", -1000);
+      put("@greenhousemd", 1000);
+      put("@TonyHinton2010006", -1000);
+      put("@CaoimhinFachtna", -1000);
+      put("@atensnut", -1000);
+      put("@ToniaBuxton", -1000);
+      put("@RealJamesWoods", -1000);
+      put("@profnfenton", -1000);
+      put("@VigilantFox", -1000);
+      put("@Karenlovecheese", 1000);
+      put("@mrjamesob", 1000);
+      put("@HumanRights4UK", -1000);
+      put("@PeterDooleyDUB", 1000);
+      put("@BKarahalios", -1000);
+      put("@DrHoenderkamp", -1000);
+      put("@RWMaloneMD", -1000);
+      put("@davidkurten", -1000);
+      put("@kernaghanscott5", -1000);
+      put("@danjgregory", -1000);
+      put("@HPVSideEffects", -1000);
+      put("@WhiteCoatWaste", -1000);
+      put("@mysteriouskat", 0);
+      put("@Eric_Schmitt", -1000);
+      put("@EliseiNicole", -1000);
+      put("@chiproytx", -1000);
+      put("@RefusenikExmoor", -1000);
+      put("@SolNataMD", 1000);
+      put("@JuliaHB1", -1000);
+      put("@SteveBakerHW", -1000);
+      put("@MaajidNawaz", -1000);
+      put("@Surabees", -1000);
+      put("@JT4USA", -1000);
+      put("@Jemmapalmer", 1000);
+      put("@SebGorka", -1000);
+      put("@michaelmalice", -1000);
+      put("@EricMMatheny", -1000);
+      put("@ian_charles007", 1000);
+      put("@Femi_Sorry", -1000);
+      put("@beverleyturner", -1000);
+      put("@laworfiction", -1000);
+      put("@Valkyrie20201", -1000);
+      put("@TomthunkitsMind", 1000);
+      put("@RWTaylors", -1000);
+      put("@PapiTrumpo", -1000);
+      put("@RpsAgainstTrump", 1000);
+      put("@realDailyWire", -1000);
+      put("@castterry73", -1000);
+      put("@CarlosSimancas", -1000);
+      put("@ChrisLoesch", -1000);
+      put("@ProtestNews_EN", -1000);
+      put("@Andy_In_The_UK", -1000);
+      put("@TheDemCoalition", 1000);
+      put("@bmay", 1000);
+      put("@TheVoxWolf", -1000);
+      put("@GeorginaLishma1", -1000);
+      put("@Arwenstar", -1000);
+      put("@parisofprairie", 1000);
+      put("@Zieleds", -1000);
+      put("@ProfessorFergu1", -1000);
+      put("@MattHoyOfficial", -1000);
+      put("@DrNeilStone", 1000);
+      put("@libertytarian", -1000);
+      put("@BuffyWicks", 1000);
+      put("@AmerAcadPeds", 1000);
+      put("@CarymaRules", 1000);
+      put("@taradublinrocks", 1000);
+      put("@NeilClark66", -1000);
+      put("@awareness_4all", -1000);
+      put("@bblock29", 1000);
+      put("@marcowenjones", 1000);
+      put("@mommamia1217", 1000);
+      put("@DrMadej", -1000);
+      put("@Lenabellalou", -1000);
+      put("@McGiff", -1000);
+      put("@NeverSleever", -1000);
+      put("@zoeharcombe", -1000);
+      put("@JeffreyPeel", -1000);
+      put("@AngelaBelcamino", -1000);
+      put("@BetteMidler", -1000);
+      put("@Rene4D45", -1000);
+      put("@BorisJohnson_MP", 1000);
+      put("@TheRightMelissa", -1000);
+      put("@Belondyy", -1000);
+      put("@richardcings", -1000);
     }
   };
+  private HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<>();
+  private boolean direction = true; // true == up
 
   public TwitterGraph() throws FileNotFoundException {
     Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
@@ -75,6 +141,7 @@ public class TwitterGraph implements Graph {
     reader.loadGraph(this);
 
   }
+
   public HashMap<Vertex, List<TweetArc>> getAdjVertices() {
     return adjVertices;
   }
@@ -84,7 +151,8 @@ public class TwitterGraph implements Graph {
   }
 
   @Override
-  public void getVertex(Vertex user) {}
+  public void getVertex(Vertex user) {
+  }
 
   @Override
   // Return all edges of a given vertex
@@ -111,9 +179,10 @@ public class TwitterGraph implements Graph {
           Vertex newUser = new Vertex(arc.getVertex());
           TweetArc newArc = new TweetArc(user.getName());
           newArc.setStrength(arc.getStrength());
-          if (!entry.getValue().contains(newArc))
-           invertMap.get(newUser).add(newArc);
-           Collections.sort(invertMap.get(newUser));
+          if (!entry.getValue().contains(newArc)) {
+            invertMap.get(newUser).add(newArc);
+          }
+          Collections.sort(invertMap.get(newUser));
         }
       }
     }
@@ -187,21 +256,22 @@ public class TwitterGraph implements Graph {
   }
 
   //Strip non retweeters
-  public void stripNonRetweeters(){
-    for(Map.Entry<Vertex,List<TweetArc>> entry: adjVertices.entrySet()){
-      if(entry.getValue().size() < 1){
+  public void stripNonRetweeters() {
+    for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
+      if (entry.getValue().size() < 1) {
         adjVertices.remove(entry.getKey());
       }
     }
   }
-  public void sort(){
+
+  public void sort() {
     ArrayList<Vertex> list = new ArrayList<>();
     int count = 0;
     if (direction) {
       System.out.println("Not Inverted: Inverting now");
       invert();
-      }
-    for(Map.Entry<Vertex, List<TweetArc>> entry: adjVertices.entrySet()){
+    }
+    for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
       entry.getKey().setRetweetNum(entry.getValue().size());
       list.add(entry.getKey());
     }
@@ -209,21 +279,21 @@ public class TwitterGraph implements Graph {
   }
 
   //Overloaded sort to return
-  public ArrayList<Vertex> getEvangelists(int n){
+  public ArrayList<Vertex> getEvangelists(int n) {
     ArrayList<Vertex> list = new ArrayList<>();
     int count = 0;
     if (direction) {
       System.out.println("Not Inverted: Inverting now");
       invert();
     }
-    for(Map.Entry<Vertex, List<TweetArc>> entry: adjVertices.entrySet()){
+    for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
       entry.getKey().setRetweetNum(entry.getValue().size());
       list.add(entry.getKey());
     }
     Collections.sort(list);
 
-    ArrayList<Vertex> newList= new ArrayList<>();
-    for(int i = 0; i < n; i++){
+    ArrayList<Vertex> newList = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
       newList.add(list.get(i));
     }
 
