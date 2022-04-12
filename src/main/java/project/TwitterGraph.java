@@ -313,7 +313,7 @@ public class TwitterGraph implements Graph {
    * This method percolates the evangelists stances through the graph
    */
   public void percolate() {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 20; i++) {
       for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
         // Check if the vertex belongs to an evangelist;
         if (evangelists.containsKey(entry.getKey().getName())) {
