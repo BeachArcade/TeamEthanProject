@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -72,11 +70,12 @@ public class Reader {
         String content = line.split("\t")[2];
         if (content.startsWith("RT")) {
           String retweededUser = content.split(":", 0)[0];
-          if(retweededUser.length() > 3){
+          if (retweededUser.length() > 3) {
             retweededUser = retweededUser.substring(3);
             twitterGraph.add(user, retweededUser);
-          } else
+          } else {
             twitterGraph.add(user);
+          }
         } else {
           // if there is no RT, just add new tweet to graph
           twitterGraph.add(user);
@@ -93,20 +92,20 @@ public class Reader {
   /**
    * This reads a previously saved graph file and then passes the input to create a graph
    */
-  public void loadGraph(TwitterGraph twitterGraph){
+  public void loadGraph(TwitterGraph twitterGraph) {
     String line;
-    while((line = nextLine()) != null){
+    while ((line = nextLine()) != null) {
       String[] str = line.split("\t");
-      List<String> list = Arrays.asList(str[1].replace("{", "").replace("}", "").split(","));
-      twitterGraph.add(new Vertex(str[0]), list);
+      List<String> list = Arrays.asList(str[2].replace("{", "").replace("}", "").split(","));
+      twitterGraph.add(new Vertex(str[0]), Integer.parseInt(str[1]), list);
     }
   }
 
-  public ArrayList<String> getTweets(Vertex user){
-    String line, userStr;
-    while((line = nextLine()) != null){
-
-    }
-  }
+//  public ArrayList<String> getTweets(Vertex user){
+//    String line, userStr;
+//    while((line = nextLine()) != null){
+//
+//    }
+//  }
 }
 
