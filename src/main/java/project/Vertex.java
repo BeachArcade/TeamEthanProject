@@ -3,11 +3,11 @@ package project;
 import java.util.Objects;
 //import java.util.StringTokenizer;
 
-public class Vertex implements Comparable{
+public class Vertex implements Comparable {
 
   private final String user;
-  private int stance = 0;
   private final int hashCode;
+  private int stance = 0;
   private int retweetNum;
 
   public Vertex(String tweetName) {
@@ -19,11 +19,17 @@ public class Vertex implements Comparable{
     return user;
   }
 
-  public int getStance() { return stance; }
+  public int getStance() {
+    return stance;
+  }
 
-  public void setStance( int x ){ this.stance = x; }
+  public void setStance(int x) {
+    this.stance = x;
+  }
 
-  public void changeStance( int change ) { this.setStance( this.getStance() + change); }
+  public void changeStance(int change) {
+    this.setStance(this.getStance() + change);
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -42,21 +48,27 @@ public class Vertex implements Comparable{
     return this.hashCode;
   }
 
-  public void setRetweetNum(int n){
-    this.retweetNum = n;
-  }
-  public int getRetweetNum(){
+  public int getRetweetNum() {
     return retweetNum;
   }
+
+  public void setRetweetNum(int n) {
+    this.retweetNum = n;
+  }
+
   public int compareTo(Vertex genericThat) {
-    if(genericThat.retweetNum > this.retweetNum) return 1;
-    else if (genericThat.retweetNum < this.retweetNum) return -1;
-    else return 0;
+    if (genericThat.retweetNum > this.retweetNum) {
+      return 1;
+    } else if (genericThat.retweetNum < this.retweetNum) {
+      return -1;
+    } else {
+      return 0;
+    }
   }
 
   @Override
   public int compareTo(Object o) {
-    if(o.getClass().equals(this.getClass())){
+    if (o.getClass().equals(this.getClass())) {
       return this.compareTo((Vertex) o);
     }
     return 0;
