@@ -8,7 +8,7 @@ public class Vertex implements Comparable {
   private final String user;
   private final int hashCode;
   private int stance = 0;
-  private int retweetNum;
+  private int retweetNum = 1;
 
   public Vertex(String tweetName) {
     this.user = tweetName;
@@ -21,6 +21,10 @@ public class Vertex implements Comparable {
 
   public int getStance() {
     return stance;
+  }
+
+  public int getCalculatedStance(){
+    return stance/getRetweetNum();
   }
 
   public void setStance(int x) {
