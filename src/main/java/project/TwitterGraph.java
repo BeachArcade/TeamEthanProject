@@ -16,6 +16,50 @@ public class TwitterGraph implements Graph {
   private HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<Vertex, List<TweetArc>>();
   private boolean direction = true; // true == up
 
+  // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
+  private HashMap<String, Integer> evangelists = new HashMap<String, Integer>() {
+    {
+
+      // Add keys and values (username, stance)
+      put("@BernieSpofforth", -1);
+      put("@JamesMelville", -1);
+      put("@jackjohnsoniv7", 1);
+      put("@GillianMcKeith", -1);
+      put("@RealCandaceO", -1);
+      put("@EssexPR", -1);
+      put("@alanvibe", -1);
+      put("@ginacarano", -1);
+      put("@Togetherdec", -1);
+      put("@catturd2", -1);
+      put("@org_scp", -1);
+      put("@BananaMediaQ", -1);
+      put("@EU_Commission", 1);
+      put("@JamesfWells", -1);
+      put("@LozzaFox", -1);
+      put("@djlange", -1);
+      put("@gbrough10", -1);
+      put("@greenhousemd", 1);
+      put("@TonyHinton2016", -1);
+      put("@CaoimhinFachtna", -1);
+      put("@atensnut", -1);
+      put("@ToniaBuxton", -1);
+      put("@RealJamesWoods", -1);
+      put("@profnfenton", -1);
+      put("@VigilantFox", -1);
+      put("@Karenlovecheese", 1);
+      put("@mrjamesob", 1);
+      put("@HumanRights4UK", -1);
+      put("@PeterDooleyDUB", 1);
+      put("@BKarahalios", -1);
+      put("@DrHoenderkamp", -1);
+      put("@RWMaloneMD", -1);
+      put("@davidkurten", -1);
+      put("@kernaghanscott5", -1);
+      put("@danjgregory", -1);
+
+    }
+  };
+
   public TwitterGraph() throws FileNotFoundException {
     Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
     Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
