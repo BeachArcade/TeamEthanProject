@@ -328,7 +328,6 @@ public class TwitterGraph implements Graph {
             entry.getKey().setRetweetNum(entry.getKey().getRetweetNum() + tweetArc.getStrength());
           }
         }
-        System.out.println(entry.getKey().getName()+"\t"+entry.getKey().getCalculatedStance());
       }
     }
   }
