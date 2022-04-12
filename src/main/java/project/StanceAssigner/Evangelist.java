@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Evangelist extends Vertex {
     private int stance;
-    private ArrayList<TweetArc> tweets;
+    private ArrayList<String> tweets;
     public Evangelist(String tweetName) {
         super(tweetName);
         stance = 0;
@@ -22,9 +22,12 @@ public class Evangelist extends Vertex {
     public String toString(){
         return getName() + ", " + stance;
     }
-    public void getTweets() throws FileNotFoundException {
-        Reader read = new Reader(new File("Vax Data/vax tweets.txt"));
-
+    public void findTweets() throws FileNotFoundException {
+        Reader read = new Reader(new File("VaxData/vax tweets.txt"));
+        tweets = read.getTweets(this);
+    }
+    public ArrayList<String> getTweets(){
+        return tweets;
     }
 }
 

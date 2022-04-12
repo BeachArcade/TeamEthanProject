@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -101,11 +103,15 @@ public class Reader {
     }
   }
 
-//  public ArrayList<String> getTweets(Vertex user){
-//    String line, userStr;
-//    while((line = nextLine()) != null){
-//
-//    }
-//  }
+  public ArrayList<String> getTweets(Vertex user){
+    String line, userStr;
+    ArrayList<String> list = new ArrayList<>();
+    while((line = nextLine()) != null){
+      if(line.contains(user.getName())){
+        list.add(line);
+      }
+    }
+    return list;
+  }
 }
 
