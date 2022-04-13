@@ -18,7 +18,7 @@ import java.util.Map;
 public class TwitterGraph implements Graph {
 
   // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
-  private final HashMap<String, Integer> evangelists = new HashMap<String, Integer>() {
+  private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
     {
       // Add keys and values (username, stance)
       put("@BernieSpofforth", -1000);
@@ -194,7 +194,7 @@ public class TwitterGraph implements Graph {
     direction = !direction;
   }
 
-  public void add(Vertex user, int stance, List<?> retweets){
+  public void add(Vertex user, int stance, List<?> retweets) {
     user.setStance(stance);
     add(user, retweets);
   }
@@ -316,8 +316,8 @@ public class TwitterGraph implements Graph {
     for (int i = 0; i < 20; i++) {
       for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
         // Check if the vertex belongs to an evangelist;
-        if (evangelists.containsKey(entry.getKey().getName())) {
-          entry.getKey().setStance(evangelists.get(entry.getKey().getName()));
+        if (evangeLists.containsKey(entry.getKey().getName())) {
+          entry.getKey().setStance(evangeLists.get(entry.getKey().getName()));
         } else {
           // Update the stance and the retweet num for each arc
           for (TweetArc tweetArc : entry.getValue()) {
@@ -333,13 +333,6 @@ public class TwitterGraph implements Graph {
   }
 
 }
-
-/*
- *  public void percolate(Vertex[] evangelists)
- *    go thru hashmap and get the values of all evangelists
- *      add stance of evangelist to retweeter (Stance += stance/retweet#)
- */
-
 
 
 
