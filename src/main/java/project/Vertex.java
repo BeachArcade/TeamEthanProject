@@ -1,6 +1,7 @@
 package project;
 
 import java.util.Objects;
+import java.util.ArrayList;
 //import java.util.StringTokenizer;
 
 public class Vertex implements Comparable {
@@ -9,6 +10,7 @@ public class Vertex implements Comparable {
   private final int hashCode;
   private int stance = 0;
   private int retweetNum = 1;
+  ArrayList<Hashtag> listOfHashtags = new ArrayList<Hashtag>();
 
   public Vertex(String tweetName) {
     this.user = tweetName;
@@ -34,6 +36,12 @@ public class Vertex implements Comparable {
   public void changeStance(int change) {
     this.setStance(this.getStance() + change);
   }
+
+  public ArrayList getListOfHashtags() { return listOfHashtags; }
+
+  public void setHashtagList ( ArrayList newListOfHashes) {this.listOfHashtags = newListOfHashes;}
+
+  public void addHashtagToList( Hashtag newHash) { this.listOfHashtags.add(newHash);}
 
   @Override
   public boolean equals(Object o) {
