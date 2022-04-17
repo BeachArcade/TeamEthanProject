@@ -1,4 +1,4 @@
-package project;
+package project.Vertexes;
 
 import java.util.Objects;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Vertex implements Comparable {
     this.hashCode = Objects.hashCode(tweetName);
   }
 
-  public String getName() {
+  public String getData() {
     return user;
   }
 
@@ -84,6 +84,9 @@ public class Vertex implements Comparable {
       return this.compareTo((Vertex) o);
     }
     return 0;
+  }
+  public String getName(){
+    return this.user;
   }
 }
 

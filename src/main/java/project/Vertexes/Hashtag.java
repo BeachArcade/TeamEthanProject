@@ -1,6 +1,6 @@
-package project;
+package project.Vertexes;
 
-public class Hashtag {
+public class Hashtag implements Comparable{
 
     private final String tagName;
     private int stance = 0;
@@ -10,7 +10,7 @@ public class Hashtag {
         this.tagName = hashtag;
     }
 
-    public String getName() {
+    public String getData() {
         return tagName;
     }
 
@@ -39,6 +39,10 @@ public class Hashtag {
         this.numOfTweets = n;
     }
 
+    public void increaseTweetNum(){
+        setNumOfTweets(numOfTweets + 1);
+    }
+
     public int compareTo(Hashtag genericThat) {
         if (genericThat.numOfTweets > this.numOfTweets) {
             return 1;
@@ -49,4 +53,11 @@ public class Hashtag {
         }
     }
 
+    @Override
+    public int compareTo(Object o) {
+        if(!o.getClass().equals(this.getClass()))
+            return 0;
+        else
+            return this.compareTo((Hashtag)o);
+    }
 }

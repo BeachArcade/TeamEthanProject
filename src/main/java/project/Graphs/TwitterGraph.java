@@ -1,4 +1,8 @@
-package project;
+package project.Graphs;
+
+import project.IO.Reader;
+import project.Vertexes.TweetArc;
+import project.Vertexes.Vertex;
 
 import java.io.File;
 import java.io.FileNotFoundException;

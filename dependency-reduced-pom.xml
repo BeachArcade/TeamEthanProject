@@ -14,7 +14,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>project.SearchTweets</mainClass>
+              <mainClass>project.IO.SearchTweets</mainClass>
             </manifest>
           </archive>
         </configuration>

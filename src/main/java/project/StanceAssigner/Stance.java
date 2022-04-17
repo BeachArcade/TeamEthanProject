@@ -1,7 +1,7 @@
 package project.StanceAssigner;
 
-import project.TwitterGraph;
-import project.Vertex;
+import project.Graphs.TwitterGraph;
+import project.Vertexes.Vertex;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,14 +17,15 @@ public class Stance {
   private static int currTweet = 0;
 
   public static void main(String[] args) throws FileNotFoundException {
+    System.out.println("DEBUG: APP IS ON");
     // Graph
     TwitterGraph graph = new TwitterGraph();
     users = graph.getEvangelists(100);
 
     //set up evangelists
     for(Vertex v: users){
-      System.out.print("Added: " + v.getName() + "\t\t");
-      evangelists.add(new Evangelist(v.getName()));
+      System.out.print("Added: " + v.getData() + "\t\t");
+      evangelists.add(new Evangelist(v.getData()));
       evangelists.get(evangelists.size()-1).findTweets();
       System.out.println("gripped tweets!");
     }
@@ -45,7 +46,7 @@ public class Stance {
     JLabel user = new JLabel();
     JTextField tweet = new JTextField();
     user.setBounds(100,100,100,40);
-    user.setText(evangelists.get(currUser).getName());
+    user.setText(evangelists.get(currUser).getData());
     tweet.setBounds(100,300,1920*2,100);
     tweet.setText(evangelists.get(currUser).getTweets().get(currTweet));
 
@@ -55,10 +56,10 @@ public class Stance {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            System.out.println(users.get(currUser).getName() + "[PRO]");
+            System.out.println(currUser + ") " + users.get(currUser).getData() + "[PRO]");
             users.get(currUser).setStance(1000);
             currUser++;
-            user.setText(users.get(currUser).getName());
+            user.setText(users.get(currUser).getData());
             currTweet = 0;
             tweet.setText(evangelists.get(currUser).getTweets().get(0));
           }
@@ -66,10 +67,10 @@ public class Stance {
     ActionListener antiAssign = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println(users.get(currUser).getName() + " [ANTI]");
+        System.out.println(currUser+ ") " + users.get(currUser).getData() + " [ANTI]");
         users.get(currUser).setStance(-1000);
         currUser++;
-        user.setText(users.get(currUser).getName());
+        user.setText(users.get(currUser).getData());
         currTweet = 0;
         tweet.setText(evangelists.get(currUser).getTweets().get(0));
       }
