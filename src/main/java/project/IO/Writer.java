@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import project.Graphs.HashtagGraph;
 import project.Graphs.TwitterGraph;
 import project.Vertexes.TweetArc;
 import project.Vertexes.Vertex;
@@ -35,6 +36,11 @@ public class Writer {
       stringBuilder.append("}\n");
       bufferedWriter.append(stringBuilder.toString());
     }
+  }
+
+
+  public void writeHashtagGraphToFile(HashtagGraph hashtagGraph){
+    // TODO: Implementation
   }
 
   public void close() throws IOException {
