@@ -1,4 +1,8 @@
-package project;
+package project.Graphs;
+
+import project.Vertexes.Arc;
+import project.Vertexes.TweetArc;
+import project.Vertexes.Vertex;
 
 import java.util.HashMap;
 import java.util.List;

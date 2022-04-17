@@ -1,4 +1,4 @@
-package project;
+package project.Vertexes;
 
 import java.util.Objects;
 

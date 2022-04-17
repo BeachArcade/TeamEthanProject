@@ -1,4 +1,9 @@
-package project;
+package project.IO;
+
+import project.Graphs.HashtagGraph;
+import project.Graphs.TwitterGraph;
+import project.Vertexes.Hashtag;
+import project.Vertexes.Vertex;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -114,11 +118,33 @@ public class Reader {
     String line, userStr;
     ArrayList<String> list = new ArrayList<>();
     while((line = nextLine()) != null){
-      if(line.contains(user.getName())){
-        list.add(line);
+      if(line.contains(user.getData())){
+        //Tokenize and strip irrelevant data
+        String[] arr = line.split("\t");
+        if (arr[2].length() > 2) {
+          if (!arr[2].startsWith("RT")) list.add(arr[1] + arr[2]);
+        }
       }
     }
     return list;
+  }
+
+  public ArrayList<Vertex> getHashtags(Hashtag hashtag) {
+    ArrayList<Vertex> list = new ArrayList<>();
+    String line;
+    while((line = nextLine()) != null){
+      if (line.contains(hashtag.getData())) {
+        Vertex user = parseUser(line);
+        if(!list.contains(user))
+          list.add(user);
+        hashtag.increaseTweetNum();
+      }
+    }
+    return list;
+  }
+  private Vertex parseUser(String tweet){
+    String[] tweetArr = tweet.split(" ");
+    return new Vertex(tweetArr[2]);
   }
 }
 

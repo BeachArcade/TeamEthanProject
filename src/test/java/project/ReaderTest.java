@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import project.IO.Reader;
 
 class ReaderTest {
 

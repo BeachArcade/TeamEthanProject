@@ -1,4 +1,8 @@
-package project;
+package project.IO;
+
+import project.Graphs.TwitterGraph;
+import project.Vertexes.TweetArc;
+import project.Vertexes.Vertex;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Writer {
   BufferedWriter bufferedWriter;
@@ -21,7 +24,7 @@ public class Writer {
     }
     for (Map.Entry<Vertex, List<TweetArc>> entry : twitterGraph.getAdjVertices().entrySet()) {
       StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append(entry.getKey().getName()).append("\t").append(entry.getKey().getCalculatedStance()).append("\t{");
+      stringBuilder.append(entry.getKey().getData()).append("\t").append(entry.getKey().getCalculatedStance()).append("\t{");
       for (TweetArc arc : entry.getValue()) {
         stringBuilder.append(arc.getVertex()).append(" ").append(arc.getStrength()).append(",");
       }

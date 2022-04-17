@@ -1,4 +1,4 @@
-package project;
+package project.IO;
 
 import twitter4j.conf.ConfigurationBuilder;
 

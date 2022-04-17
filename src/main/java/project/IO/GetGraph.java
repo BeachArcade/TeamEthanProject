@@ -1,4 +1,6 @@
-package project;
+package project.IO;
+
+import project.Graphs.TwitterGraph;
 
 import java.io.File;
 import java.io.IOException;

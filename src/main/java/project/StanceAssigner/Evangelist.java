@@ -1,8 +1,7 @@
 package project.StanceAssigner;
 
-import project.Reader;
-import project.TweetArc;
-import project.Vertex;
+import project.IO.Reader;
+import project.Vertexes.Vertex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +19,7 @@ public class Evangelist extends Vertex {
     }
 
     public String toString(){
-        return getName() + ", " + stance;
+        return getData() + ", " + stance;
     }
     public void findTweets() throws FileNotFoundException {
         Reader read = new Reader(new File("VaxData/vax tweets.txt"));
