@@ -62,7 +62,7 @@ public class Reader {
       for (String word : tweetContent) {
         if (word.startsWith("#")) {
           twitterGraph.addHashtag(new Hashtag(word)); // Add hashtag to Graph
-          twitterGraph.getVertex(new Vertex(user)).addHashtag(new Hashtag(word)); // Add hashtag to user
+          twitterGraph.getVertex(new Vertex(user)).addHashtag(word); // Add hashtag to user
         }
       }
     }
