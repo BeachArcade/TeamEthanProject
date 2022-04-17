@@ -56,7 +56,7 @@ public class Stance {
           @Override
           public void actionPerformed(ActionEvent e) {
             System.out.println(users.get(currUser).getName() + "[PRO]");
-            users.get(currUser).setStance(1000);
+            users.get(currUser).setRetweetStance(1000);
             currUser++;
             user.setText(users.get(currUser).getName());
             currTweet = 0;
@@ -67,7 +67,7 @@ public class Stance {
       @Override
       public void actionPerformed(ActionEvent e) {
         System.out.println(users.get(currUser).getName() + " [ANTI]");
-        users.get(currUser).setStance(-1000);
+        users.get(currUser).setRetweetStance(-1000);
         currUser++;
         user.setText(users.get(currUser).getName());
         currTweet = 0;
