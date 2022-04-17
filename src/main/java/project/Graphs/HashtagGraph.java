@@ -24,6 +24,14 @@ public class HashtagGraph {
     }
   }
 
+  public HashMap<Hashtag, ArrayList<Vertex>> getHashtagGraph() {
+    return hashtagGraph;
+  }
+
+  public void setHashtagGraph(HashMap<Hashtag, ArrayList<Vertex>> hashtagGraph) {
+    this.hashtagGraph = hashtagGraph;
+  }
+
   public boolean isDirection() {
     return direction;
   }
