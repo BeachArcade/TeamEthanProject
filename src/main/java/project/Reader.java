@@ -58,6 +58,13 @@ public class Reader {
     while ((line = nextLine()) != null) {
       String user = line.split("\t")[0];
       twitterGraph.add(user);
+      String[] tweetContent = line.split("\t")[2].split(":")[1].split(" ");
+      for (String word : tweetContent) {
+        if (word.startsWith("#")) {
+          twitterGraph.addHashtag(new Hashtag(word)); // Add hashtag to Graph
+          twitterGraph.getVertex(new Vertex(user)).addHashtag(new Hashtag(word)); // Add hashtag to user
+        }
+      }
     }
   }
 
