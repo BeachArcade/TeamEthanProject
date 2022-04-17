@@ -15,7 +15,7 @@ public class Evangelist extends Vertex {
         super(tweetName);
         stance = 0;
     }
-    public void setStance(int n){
+    public void setRetweetStance(int n){
         stance = n;
     }
 
