@@ -146,7 +146,7 @@ public class TwitterGraph implements Graph {
 
   public TwitterGraph(File input) throws FileNotFoundException {
     Reader reader = new Reader(input);
-    reader.loadGraph(this);
+    reader.loadTwitterGraph(this);
 
   }
 

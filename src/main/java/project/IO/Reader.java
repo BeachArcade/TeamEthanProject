@@ -106,7 +106,7 @@ public class Reader {
   /**
    * This reads a previously saved graph file and then passes the input to create a graph
    */
-  public void loadGraph(TwitterGraph twitterGraph) {
+  public void loadTwitterGraph(TwitterGraph twitterGraph) {
     String line;
     while ((line = nextLine()) != null) {
       String[] str = line.split("\t");

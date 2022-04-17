@@ -29,14 +29,14 @@ public class GetGraph {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
       TwitterGraph twitterGraph = new TwitterGraph();
-      reader.loadGraph(twitterGraph);
+      reader.loadTwitterGraph(twitterGraph);
       writer.writeToFile(twitterGraph);
 
     } else if (args[0].equals("4")) {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
       TwitterGraph twitterGraph = new TwitterGraph();
-      reader.loadGraph(twitterGraph);
+      reader.loadTwitterGraph(twitterGraph);
       twitterGraph.invert();
       writer.writeToFile(twitterGraph);
     }
