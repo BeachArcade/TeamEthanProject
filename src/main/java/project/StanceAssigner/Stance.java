@@ -1,18 +1,21 @@
 package project.StanceAssigner;
 
-import project.Graphs.TwitterGraph;
-import project.Vertexes.Vertex;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import project.Graphs.TwitterGraph;
+import project.Vertexes.Vertex;
 
 public class Stance {
+
   private static TwitterGraph graph;
   private static ArrayList<Vertex> users = new ArrayList<>();
-  private static ArrayList<Evangelist> evangelists = new ArrayList<>();
+  private static final ArrayList<Evangelist> evangelists = new ArrayList<>();
   private static int currUser = 0;
   private static int currTweet = 0;
 
@@ -23,10 +26,10 @@ public class Stance {
     users = graph.getEvangelists(100);
 
     //set up evangelists
-    for(Vertex v: users){
+    for (Vertex v : users) {
       System.out.print("Added: " + v.getData() + "\t\t");
       evangelists.add(new Evangelist(v.getData()));
-      evangelists.get(evangelists.size()-1).findTweets();
+      evangelists.get(evangelists.size() - 1).findTweets();
       System.out.println("gripped tweets!");
     }
 
@@ -45,12 +48,13 @@ public class Stance {
     // Text Fields
     JLabel user = new JLabel();
     JTextField tweet = new JTextField();
-    user.setBounds(100,100,100,40);
+    user.setBounds(100, 100, 100, 40);
     user.setText(evangelists.get(currUser).getData());
-    tweet.setBounds(100,300,1920*2,100);
+    tweet.setBounds(100, 300, 1920 * 2, 100);
     tweet.setText(evangelists.get(currUser).getTweets().get(currTweet));
 
-    System.out.println("Starts here\n================================================================================================");
+    System.out.println(
+        "Starts here\n================================================================================================");
     // Listeners
     ActionListener proAssign =
         new ActionListener() {
@@ -78,7 +82,8 @@ public class Stance {
     ActionListener setTweet = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        tweet.setText(evangelists.get(currUser).getTweets().get(currTweet % evangelists.get(currUser).getTweets().size()));
+        tweet.setText(evangelists.get(currUser).getTweets()
+            .get(currTweet % evangelists.get(currUser).getTweets().size()));
         currTweet++;
       }
     };
@@ -95,7 +100,7 @@ public class Stance {
     frame.add(user);
     frame.add(tweet);
 
-    frame.setSize(1920*2, 800);
+    frame.setSize(1920 * 2, 800);
     frame.setLayout(null);
     frame.setVisible(true);
   }

@@ -1,12 +1,11 @@
 package project.Graphs;
 
-import project.Vertexes.Arc;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import project.Vertexes.Arc;
+import project.Vertexes.TweetArc;
+import project.Vertexes.Vertex;
 
 /**
  * Graph interface
@@ -16,18 +15,19 @@ import java.util.Map;
  */
 
 public interface Graph {
-    //TODO: What to return? map or vector
-    public Vertex getVertex(Vertex user);
 
-    public List<TweetArc> getEdges(Vertex user);
+  Map<Vertex, List<Arc>> adjVertices = new HashMap<Vertex, List<Arc>>();
 
-    public void invert();
+  //TODO: What to return? map or vector
+  Vertex getVertex(Vertex user);
 
-    public void add(Vertex user, List<?> retweets);
+  List<TweetArc> getEdges(Vertex user);
 
-    public void remove(Vertex user);
+  void invert();
 
-    Map<Vertex, List<Arc>> adjVertices = new HashMap<Vertex, List<Arc>>();
+  void add(Vertex user, List<?> retweets);
+
+  void remove(Vertex user);
 
 
 }

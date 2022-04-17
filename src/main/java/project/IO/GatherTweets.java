@@ -1,11 +1,21 @@
 package project.IO;
 
-import twitter4j.*;
-import twitter4j.conf.ConfigurationBuilder;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+import twitter4j.FilterQuery;
+import twitter4j.StallWarning;
+import twitter4j.Status;
+import twitter4j.StatusDeletionNotice;
+import twitter4j.StatusListener;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
+import twitter4j.User;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Alternative class to Tweet Gatherer using the Streaming API
@@ -17,11 +27,11 @@ import java.util.Properties;
 // !TODO make different output files for different groups?
 public class GatherTweets {
 
-  private BufferedWriter tweetWriter, userWriter;
-  private TwitterStream twitterStream;
   private final Properties properties;
   private final HashMap<String, Boolean> tweetOccured = new HashMap<>();
   private final HashMap<String, Boolean> userOccured = new HashMap<>();
+  private BufferedWriter tweetWriter, userWriter;
+  private TwitterStream twitterStream;
   private StatusListener listener;
 
   public GatherTweets() throws IOException {
@@ -55,7 +65,9 @@ public class GatherTweets {
     twitterStream.filter(filterQuery);
   }
 
-  /** Initializes the listener TODO: Make listener write to the respective files */
+  /**
+   * Initializes the listener TODO: Make listener write to the respective files
+   */
   private void initListener() {
     listener =
         (new StatusListener() {
@@ -108,8 +120,11 @@ public class GatherTweets {
     if (!userOccured.getOrDefault("@" + user.getScreenName(), false)) {
       // Deal with null bio
       String biography;
-      if (user.getDescription() == null) biography = "n/a";
-      else biography = user.getDescription().replaceAll("[\\t\\n\\r]+", " ");
+      if (user.getDescription() == null) {
+        biography = "n/a";
+      } else {
+        biography = user.getDescription().replaceAll("[\\t\\n\\r]+", " ");
+      }
       userWriter.append(
           "@"
               + user.getScreenName()

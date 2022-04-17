@@ -8,8 +8,9 @@ package project.Vertexes;
  */
 
 public interface Arc extends Comparable<Arc> {
-    public String getVertex();
 
-    public int strength();
+  String getVertex();
+
+  int strength();
 
 }

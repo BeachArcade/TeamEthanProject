@@ -7,6 +7,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Vertex implements Comparable {
 
+  public HashMap<String, Integer> getListOfHashtags() {
+    return listOfHashtags;
+  }
+
+  public void setListOfHashtags(HashMap<String, Integer> listOfHashtags) {
+    this.listOfHashtags = listOfHashtags;
+  }
+
   private final String user;
   private final int hashCode;
   private int retweetStance = 0;

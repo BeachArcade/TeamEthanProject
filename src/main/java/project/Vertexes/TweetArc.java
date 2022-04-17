@@ -73,13 +73,7 @@ public class TweetArc implements Arc {
   public int compareTo(Arc genericThat) {
     if (genericThat.getClass().equals(this.getClass())) {
       TweetArc that = (TweetArc) genericThat;
-      if (this.getStrength() > that.getStrength()) {
-        return 1;
-      } else if (this.getStrength() < that.getStrength()) {
-        return -1;
-      } else {
-        return 0;
-      }
+      return Integer.compare(this.getStrength(), that.getStrength());
     }
     return -2;
   }

@@ -1,18 +1,20 @@
 package project.Graphs;
 
-import project.IO.Reader;
-import project.Vertexes.Hashtag;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import project.IO.Reader;
+import project.Vertexes.Hashtag;
+import project.Vertexes.Vertex;
 
 public class HashtagGraph {
+
   private HashMap<Hashtag, ArrayList<Vertex>> hashtagGraph;
-  private ArrayList<Hashtag> hashtags = new ArrayList<>();
-  private boolean direction = true;
+  private final ArrayList<Hashtag> hashtags = new ArrayList<>();
+  private final boolean direction = true;
 
 
   public HashtagGraph() throws FileNotFoundException {
@@ -28,26 +30,29 @@ public class HashtagGraph {
     ArrayList<Vertex> users = new ArrayList<>();
     HashMap<Vertex, ArrayList<Hashtag>> invertGraph = new HashMap<>();
     // Add all users and hashtags to the arrays
-    for(Map.Entry<Hashtag, ArrayList<Vertex>> entry: hashtagGraph.entrySet()){
+    for (Map.Entry<Hashtag, ArrayList<Vertex>> entry : hashtagGraph.entrySet()) {
       // Add tag
-      if(!tags.contains(entry.getKey()))
+      if (!tags.contains(entry.getKey())) {
         tags.add(entry.getKey());
+      }
       // Add user
-      for(Vertex v : entry.getValue()){
-        if(!users.contains(v))
+      for (Vertex v : entry.getValue()) {
+        if (!users.contains(v)) {
           users.add(v);
+        }
       }
     }
     // add users to the inverted map
-    for(Vertex v: users){
+    for (Vertex v : users) {
       invertGraph.put(v, new ArrayList<>());
       //Add all hashtags to the list
       ArrayList<Hashtag> newTags = new ArrayList<>();
-      for(Hashtag h : tags){
-        for(Vertex otherV : hashtagGraph.get(h)){
-          if(v.compareTo(otherV) == 0){
-            if(!newTags.contains(h))
+      for (Hashtag h : tags) {
+        for (Vertex otherV : hashtagGraph.get(h)) {
+          if (v.compareTo(otherV) == 0) {
+            if (!newTags.contains(h)) {
               newTags.add(h);
+            }
           }
         }
       }
@@ -55,10 +60,11 @@ public class HashtagGraph {
     }
 
 
-
   }
 
-  public void add(Hashtag user, List<?> retweets) {}
+  public void add(Hashtag user, List<?> retweets) {
+  }
 
-  public void remove(Hashtag user) {}
+  public void remove(Hashtag user) {
+  }
 }

@@ -27,7 +27,10 @@ public class Hashtag {
   }
 
   public int getCalculatedStance() {
-    return stance / getNumOfTweets();
+    if (getNumOfTweets() != 0) {
+      return stance / getNumOfTweets();
+    }
+    return 0;
   }
 
   public void changeStance(int change) {
@@ -43,20 +46,12 @@ public class Hashtag {
     this.numOfTweets = n;
   }
 
-    public void increaseTweetNum(){
-        setNumOfTweets(numOfTweets + 1);
-    }
+  public void increaseTweetNum() {
+    setNumOfTweets(numOfTweets + 1);
+  }
 
-    public int compareTo(Hashtag genericThat) {
-        if (genericThat.numOfTweets > this.numOfTweets) {
-            return 1;
-        } else if (genericThat.numOfTweets < this.numOfTweets) {
-            return -1;
-        } else {
-            return 0;
-        }
-  public void changeNumOfTweets(int n){
-    this.setNumOfTweets(this.getNumOfTweets()+n);
+  public void changeNumOfTweets(int n) {
+    this.setNumOfTweets(this.getNumOfTweets() + n);
   }
 
   public int compareTo(Hashtag genericThat) {
@@ -85,12 +80,4 @@ public class Hashtag {
     Hashtag that = (Hashtag) o;
     return this.hashCode == that.hashCode;
   }
-
-    @Override
-    public int compareTo(Object o) {
-        if(!o.getClass().equals(this.getClass()))
-            return 0;
-        else
-            return this.compareTo((Hashtag)o);
-    }
 }

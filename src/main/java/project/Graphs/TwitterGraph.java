@@ -1,6 +1,7 @@
 package project.Graphs;
 
 import project.IO.Reader;
+import project.Vertexes.Hashtag;
 import project.Vertexes.TweetArc;
 import project.Vertexes.Vertex;
 
@@ -130,10 +131,10 @@ public class TwitterGraph implements Graph {
   private boolean direction = true; // true == up
 
   public TwitterGraph() throws FileNotFoundException {
-    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
-    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-//    Reader userReader= new Reader(new File("VaxData/100VaxUsersTweets.txt"));
-//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
+//    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
+//    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
+    Reader userReader= new Reader(new File("VaxData/100VaxUsersTweets.txt"));
+    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
@@ -339,12 +340,12 @@ public class TwitterGraph implements Graph {
           }
           // Reset and update the total hashtag Stance for each hashtag used by the user
           entry.getKey().setHashtagStance(0);
-          for(String hashtag:entry.getKey().listOfHashtags.keySet()){
+          for(String hashtag:entry.getKey().getListOfHashtags().keySet()){
             entry.getKey().changeHashtagStance(hashtags.get(hashtags.indexOf(new Hashtag(hashtag))).getCalculatedStance());
           }
         }
         // Update the Hashtag
-        for (Map.Entry<String, Integer> hashtag: entry.getKey().listOfHashtags.entrySet()){
+        for (Map.Entry<String, Integer> hashtag: entry.getKey().getListOfHashtags().entrySet()){
           hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeStance(entry.getKey().getCalculatedStance());
           hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeNumOfTweets(hashtag.getValue());
         }

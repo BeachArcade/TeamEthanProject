@@ -1,11 +1,10 @@
 package project.IO;
 
-import twitter4j.conf.ConfigurationBuilder;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class ConfigurationCreator {
 

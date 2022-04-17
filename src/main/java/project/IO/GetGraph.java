@@ -1,9 +1,8 @@
 package project.IO;
 
-import project.Graphs.TwitterGraph;
-
 import java.io.File;
 import java.io.IOException;
+import project.Graphs.TwitterGraph;
 
 public class GetGraph {
 
@@ -38,6 +37,7 @@ public class GetGraph {
       Reader reader = new Reader(new File(args[2]));
       TwitterGraph twitterGraph = new TwitterGraph();
       reader.loadGraph(twitterGraph);
+      twitterGraph.invert();
       writer.writeToFile(twitterGraph);
     }
   }

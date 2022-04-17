@@ -1,10 +1,5 @@
 package project.IO;
 
-import project.Graphs.HashtagGraph;
-import project.Graphs.TwitterGraph;
-import project.Vertexes.Hashtag;
-import project.Vertexes.Vertex;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+import project.Graphs.TwitterGraph;
+import project.Vertexes.Hashtag;
+import project.Vertexes.Vertex;
 
 public class Reader {
 
@@ -62,11 +60,14 @@ public class Reader {
     while ((line = nextLine()) != null) {
       String user = line.split("\t")[0];
       twitterGraph.add(user);
-      String[] tweetContent = line.split("\t")[2].split(":")[1].split(" ");
-      for (String word : tweetContent) {
-        if (word.startsWith("#")) {
-          twitterGraph.addHashtag(new Hashtag(word)); // Add hashtag to Graph
-          twitterGraph.getVertex(new Vertex(user)).addHashtag(word); // Add hashtag to user
+      String[] tweetContent;
+      if (line.split("\t")[2].contains(":")) {
+        tweetContent = line.split("\t")[2].split(":")[1].split(" ");
+        for (String word : tweetContent) {
+          if (word.startsWith("#")) {
+            twitterGraph.addHashtag(new Hashtag(word)); // Add hashtag to Graph
+            twitterGraph.getVertex(new Vertex(user)).addHashtag(word); // Add hashtag to user
+          }
         }
       }
     }
@@ -114,15 +115,17 @@ public class Reader {
     }
   }
 
-  public ArrayList<String> getTweets(Vertex user){
+  public ArrayList<String> getTweets(Vertex user) {
     String line, userStr;
     ArrayList<String> list = new ArrayList<>();
-    while((line = nextLine()) != null){
-      if(line.contains(user.getData())){
+    while ((line = nextLine()) != null) {
+      if (line.contains(user.getData())) {
         //Tokenize and strip irrelevant data
         String[] arr = line.split("\t");
         if (arr[2].length() > 2) {
-          if (!arr[2].startsWith("RT")) list.add(arr[1] + arr[2]);
+          if (!arr[2].startsWith("RT")) {
+            list.add(arr[1] + arr[2]);
+          }
         }
       }
     }
@@ -132,17 +135,19 @@ public class Reader {
   public ArrayList<Vertex> getHashtags(Hashtag hashtag) {
     ArrayList<Vertex> list = new ArrayList<>();
     String line;
-    while((line = nextLine()) != null){
-      if (line.contains(hashtag.getData())) {
+    while ((line = nextLine()) != null) {
+      if (line.contains(hashtag.getName())) {
         Vertex user = parseUser(line);
-        if(!list.contains(user))
+        if (!list.contains(user)) {
           list.add(user);
+        }
         hashtag.increaseTweetNum();
       }
     }
     return list;
   }
-  private Vertex parseUser(String tweet){
+
+  private Vertex parseUser(String tweet) {
     String[] tweetArr = tweet.split(" ");
     return new Vertex(tweetArr[2]);
   }
