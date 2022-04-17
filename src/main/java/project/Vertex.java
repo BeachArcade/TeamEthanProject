@@ -10,7 +10,7 @@ public class Vertex implements Comparable {
   private final int hashCode;
   private int stance = 0;
   private int retweetNum = 1;
-  ArrayList<Hashtag> listOfHashtags = new ArrayList<Hashtag>();
+  ArrayList<Hashtag> listOfHashtags = new ArrayList<>();
 
   public Vertex(String tweetName) {
     this.user = tweetName;
@@ -79,6 +79,16 @@ public class Vertex implements Comparable {
     }
     return 0;
   }
+
+  public void addHashtag(Hashtag hashtag){
+    if(!listOfHashtags.contains(hashtag)){
+      hashtag.setNumOfTweets(1);
+      listOfHashtags.add(hashtag);
+    } else {
+      listOfHashtags.get(listOfHashtags.indexOf(hashtag)).setNumOfTweets(listOfHashtags.get(listOfHashtags.indexOf(hashtag)).getNumOfTweets() +1);
+    }
+  }
+
 }
 
 
