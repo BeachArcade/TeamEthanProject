@@ -60,8 +60,14 @@ class ReaderTest {
   }
 
   @Test
-  public void test() {
-    Integer.parseInt("121ss");
+  public void GetHashtags() {
+    String line = "1447357947466506244\t@VishnuFNO\tRT @djlange: #Millions across the world are now protesting against the introduction of a Vax digital ID passport app.  If you don't understa…";
 
+    String[] content = line.split("\t")[2].split(":")[1].split(" ");
+    for (String word : content) {
+      if (word.startsWith("#")) {
+        System.out.println(word);
+      }
+    }
   }
 }
