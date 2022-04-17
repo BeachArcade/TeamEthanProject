@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface Graph {
     //TODO: What to return? map or vector
-    public void getVertex(Vertex user);
+    public Vertex getVertex(Vertex user);
 
     public List<TweetArc> getEdges(Vertex user);
 
