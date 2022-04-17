@@ -40,7 +40,28 @@ public class Writer {
 
 
   public void writeHashtagGraphToFile(HashtagGraph hashtagGraph){
-    // TODO: Implementation
+    /*
+
+    TODO: Set writer to hashtag graph format
+
+    if (!hashtagGraph.isDirection()) {
+      hashtagGraph.invert();
+    }
+    for (Map.Entry<Vertex, List<TweetArc>> entry : hashtagGraph.getAdjVertices().entrySet()) {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append(entry.getKey().getData()).append("\t")
+              .append(entry.getKey().getCalculatedStance()).append("\t{");
+      for (TweetArc arc : entry.getValue()) {
+        stringBuilder.append(arc.getVertex()).append(" ").append(arc.getStrength()).append(",");
+      }
+      if (stringBuilder.charAt(stringBuilder.length() - 1) == ',') {
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+      }
+      stringBuilder.append("}\n");
+      bufferedWriter.append(stringBuilder.toString());
+    }
+
+     */
   }
 
   public void close() throws IOException {
