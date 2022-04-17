@@ -1,10 +1,5 @@
 package project.Graphs;
 
-import project.IO.Reader;
-import project.Vertexes.Hashtag;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,6 +7,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import project.IO.Reader;
+import project.Vertexes.Hashtag;
+import project.Vertexes.TweetArc;
+import project.Vertexes.Vertex;
 /*TODO:
  * */
 
@@ -131,9 +130,10 @@ public class TwitterGraph implements Graph {
   private boolean direction = true; // true == up
 
   public TwitterGraph() throws FileNotFoundException {
+//    TODO: Change after Testing
 //    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
 //    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-    Reader userReader= new Reader(new File("VaxData/100VaxUsersTweets.txt"));
+    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt"));
     Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
 
     userReader.populateUsers(this);
@@ -160,8 +160,8 @@ public class TwitterGraph implements Graph {
 
   @Override
   public Vertex getVertex(Vertex user) {
-    for (Vertex vertex: adjVertices.keySet()){
-      if (vertex.equals(user)){
+    for (Vertex vertex : adjVertices.keySet()) {
+      if (vertex.equals(user)) {
         return vertex;
       }
     }
@@ -335,23 +335,27 @@ public class TwitterGraph implements Graph {
             Vertex destVertex = adjVertices.keySet().stream()
                 .filter(vertex -> vertex.equals(new Vertex(tweetArc.getVertex()))).findFirst()
                 .get();
-            entry.getKey().changeRetweetStance(destVertex.getRetweetStance() * tweetArc.getStrength());
+            entry.getKey()
+                .changeRetweetStance(destVertex.getRetweetStance() * tweetArc.getStrength());
             entry.getKey().setRetweetNum(entry.getKey().getRetweetNum() + tweetArc.getStrength());
           }
           // Reset and update the total hashtag Stance for each hashtag used by the user
           entry.getKey().setHashtagStance(0);
-          for(String hashtag:entry.getKey().getListOfHashtags().keySet()){
-            entry.getKey().changeHashtagStance(hashtags.get(hashtags.indexOf(new Hashtag(hashtag))).getCalculatedStance());
+          for (String hashtag : entry.getKey().getListOfHashtags().keySet()) {
+            entry.getKey().changeHashtagStance(
+                hashtags.get(hashtags.indexOf(new Hashtag(hashtag))).getCalculatedStance());
           }
         }
         // Update the Hashtag
-        for (Map.Entry<String, Integer> hashtag: entry.getKey().getListOfHashtags().entrySet()){
-          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeStance(entry.getKey().getCalculatedStance());
-          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeNumOfTweets(hashtag.getValue());
+        for (Map.Entry<String, Integer> hashtag : entry.getKey().getListOfHashtags().entrySet()) {
+          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey())))
+              .changeStance(entry.getKey().getCalculatedStance());
+          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey())))
+              .changeNumOfTweets(hashtag.getValue());
         }
       }
       // Reset the Stance and count of each hashtag to give a more accurate representation
-      for(Hashtag hashtag: hashtags){
+      for (Hashtag hashtag : hashtags) {
         hashtag.changeNumOfTweets(0);
         hashtag.setStance(0);
       }
