@@ -43,6 +43,10 @@ public class Hashtag {
     this.numOfTweets = n;
   }
 
+  public void changeNumOfTweets(int n){
+    this.setNumOfTweets(this.getNumOfTweets()+n);
+  }
+
   public int compareTo(Hashtag genericThat) {
     return Integer.compare(genericThat.numOfTweets, this.numOfTweets);
   }
