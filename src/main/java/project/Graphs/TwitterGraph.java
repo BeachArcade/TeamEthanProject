@@ -130,11 +130,10 @@ public class TwitterGraph implements Graph {
   private boolean direction = true; // true == up
 
   public TwitterGraph() throws FileNotFoundException {
-//    TODO: Change after Testing
-//    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
-//    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt"));
-    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt"));
+    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
+    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
+//    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); // For Testing
+//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For Testing
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
