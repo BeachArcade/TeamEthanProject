@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 /*TODO:
@@ -13,8 +12,6 @@ import java.util.Map;
 
 // !default direction is Up
 public class TwitterGraph implements Graph {
-
-  private final HashSet<Hashtag> hashtags = new HashSet<>();
 
   // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
   private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
@@ -123,6 +120,9 @@ public class TwitterGraph implements Graph {
     }
   };
   private HashMap<Vertex, List<TweetArc>> adjVertices = new HashMap<>();
+
+  private ArrayList<Hashtag> hashtags = new ArrayList<>();
+
   private boolean direction = true; // true == up
 
   public TwitterGraph() throws FileNotFoundException {
@@ -154,7 +154,13 @@ public class TwitterGraph implements Graph {
   }
 
   @Override
-  public void getVertex(Vertex user) {
+  public Vertex getVertex(Vertex user) {
+    for (Vertex vertex: adjVertices.keySet()){
+      if (vertex.equals(user)){
+        return vertex;
+      }
+    }
+    return null;
   }
 
   @Override
@@ -194,7 +200,7 @@ public class TwitterGraph implements Graph {
   }
 
   public void add(Vertex user, int stance, List<?> retweets) {
-    user.setStance(stance);
+    user.setRetweetStance(stance);
     add(user, retweets);
   }
 
@@ -316,18 +322,48 @@ public class TwitterGraph implements Graph {
       for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
         // Check if the vertex belongs to an evangelist;
         if (evangeLists.containsKey(entry.getKey().getName())) {
-          entry.getKey().setStance(evangeLists.get(entry.getKey().getName()));
+          entry.getKey().setRetweetStance(evangeLists.get(entry.getKey().getName()));
+          entry.getKey().setRetweetNum(1);
         } else {
           // Update the stance and the retweet num for each arc
           for (TweetArc tweetArc : entry.getValue()) {
             Vertex destVertex = adjVertices.keySet().stream()
                 .filter(vertex -> vertex.equals(new Vertex(tweetArc.getVertex()))).findFirst()
                 .get();
-            entry.getKey().changeStance(destVertex.getStance() * tweetArc.getStrength());
+            entry.getKey().changeRetweetStance(destVertex.getRetweetStance() * tweetArc.getStrength());
             entry.getKey().setRetweetNum(entry.getKey().getRetweetNum() + tweetArc.getStrength());
           }
+          // Reset and update the total hashtag Stance for each hashtag used by the user
+          entry.getKey().setHashtagStance(0);
+          for(String hashtag:entry.getKey().listOfHashtags.keySet()){
+            entry.getKey().changeHashtagStance(hashtags.get(hashtags.indexOf(new Hashtag(hashtag))).getCalculatedStance());
+          }
+        }
+        // Update the Hashtag
+        for (Map.Entry<String, Integer> hashtag: entry.getKey().listOfHashtags.entrySet()){
+          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeStance(entry.getKey().getCalculatedStance());
+          hashtags.get(hashtags.indexOf(new Hashtag(hashtag.getKey()))).changeNumOfTweets(hashtag.getValue());
         }
       }
+      // Reset the Stance and count of each hashtag to give a more accurate representation
+      for(Hashtag hashtag: hashtags){
+        hashtag.changeNumOfTweets(0);
+        hashtag.setStance(0);
+      }
+    }
+  }
+
+  public ArrayList<Hashtag> getHashtags() {
+    return hashtags;
+  }
+
+  public void setHashtags(ArrayList<Hashtag> hashtags) {
+    this.hashtags = hashtags;
+  }
+
+  public void addHashtag(Hashtag hashtag) {
+    if (!hashtags.contains(hashtag)) {
+      hashtags.add(hashtag);
     }
   }
 
