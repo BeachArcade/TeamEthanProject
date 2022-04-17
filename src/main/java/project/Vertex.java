@@ -69,13 +69,7 @@ public class Vertex implements Comparable {
   }
 
   public int compareTo(Vertex genericThat) {
-    if (genericThat.retweetNum > this.retweetNum) {
-      return 1;
-    } else if (genericThat.retweetNum < this.retweetNum) {
-      return -1;
-    } else {
-      return 0;
-    }
+    return Integer.compare(genericThat.retweetNum, this.retweetNum);
   }
 
   @Override
