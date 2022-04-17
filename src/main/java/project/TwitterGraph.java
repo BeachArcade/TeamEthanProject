@@ -5,17 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-/*TODO: Add checks to see if the key exists
- *       Optimize loops
- *       Add invert() method
- *       Possibly make an addEdge() method
- *
+/*TODO:
  * */
 
 // !default direction is Up
 public class TwitterGraph implements Graph {
+
+  private final HashSet<Hashtag> hashtags = new HashSet<>();
 
   // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
   private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
