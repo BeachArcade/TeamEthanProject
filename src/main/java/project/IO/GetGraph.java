@@ -24,7 +24,6 @@ public class GetGraph {
       twitterGraph.invert();
       Writer write = new Writer(new File(args[1]));
       write.writeTwitterGraphToFile(twitterGraph);
-
     } else if (args[0].equals("3")) {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
