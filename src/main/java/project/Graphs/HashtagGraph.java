@@ -12,10 +12,9 @@ import project.Vertexes.Vertex;
 
 public class HashtagGraph {
 
-  private HashMap<Hashtag, ArrayList<Vertex>> hashtagGraph;
   private final ArrayList<Hashtag> hashtags = new ArrayList<>();
-  private final boolean direction = true;
-
+  private HashMap<Hashtag, ArrayList<Vertex>> hashtagGraph;
+  private boolean direction = true; // true == up
 
   public HashtagGraph() throws FileNotFoundException {
     Reader reader = new Reader(new File("VaxData/vax tweets"));
@@ -23,6 +22,14 @@ public class HashtagGraph {
       ArrayList<Vertex> users = reader.getHashtags(tag);
       hashtagGraph.put(tag, users);
     }
+  }
+
+  public boolean isDirection() {
+    return direction;
+  }
+
+  public void setDirection(boolean direction) {
+    this.direction = direction;
   }
 
   public void invert() {
@@ -59,7 +66,7 @@ public class HashtagGraph {
 
     }
 
-
+    direction = !direction;
   }
 
   public void add(Hashtag user, List<?> retweets) {
