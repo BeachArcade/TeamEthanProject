@@ -1,52 +1,73 @@
 package project;
 
+import java.util.Objects;
+
 public class Hashtag {
 
-    private final String tagName;
-    private int stance = 0;
-    private int numOfTweets = 0;
+  private final String tagName;
+  private final int hashCode;
+  private int stance = 0;
+  private int numOfTweets = 0;
 
-    public Hashtag(String hashtag) {
-        this.tagName = hashtag;
+  public Hashtag(String hashtag) {
+    this.tagName = hashtag;
+    this.hashCode = Objects.hashCode(hashtag);
+  }
+
+  public String getName() {
+    return tagName;
+  }
+
+  public int getStance() {
+    return stance;
+  }
+
+  public void setStance(int x) {
+    this.stance = x;
+  }
+
+  public int getCalculatedStance() {
+    return stance / getNumOfTweets();
+  }
+
+  public void changeStance(int change) {
+    this.setStance(this.getStance() + change);
+  }
+
+
+  public int getNumOfTweets() {
+    return numOfTweets;
+  }
+
+  public void setNumOfTweets(int n) {
+    this.numOfTweets = n;
+  }
+
+  public int compareTo(Hashtag genericThat) {
+    return Integer.compare(genericThat.numOfTweets, this.numOfTweets);
+  }
+
+  public int compareTo(Object o) {
+    if (o.getClass().equals(this.getClass())) {
+      return this.compareTo((Hashtag) o);
     }
+    return 0;
+  }
 
-    public String getName() {
-        return tagName;
+  @Override
+  public int hashCode() {
+    return this.hashCode;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    public int getStance() {
-        return stance;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
-
-    public int getCalculatedStance(){
-        return stance/getNumOfTweets();
-    }
-
-    public void setStance(int x) {
-        this.stance = x;
-    }
-
-    public void changeStance(int change) {
-        this.setStance(this.getStance() + change);
-    }
-
-
-    public int getNumOfTweets() {
-        return numOfTweets;
-    }
-
-    public void setNumOfTweets(int n) {
-        this.numOfTweets = n;
-    }
-
-    public int compareTo(Hashtag genericThat) {
-        if (genericThat.numOfTweets > this.numOfTweets) {
-            return 1;
-        } else if (genericThat.numOfTweets < this.numOfTweets) {
-            return -1;
-        } else {
-            return 0;
-        }
-    }
+    Hashtag that = (Hashtag) o;
+    return this.hashCode == that.hashCode;
+  }
 
 }
