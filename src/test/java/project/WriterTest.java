@@ -25,7 +25,7 @@ class WriterTest {
   @Test
   void checkWriter() throws IOException {
     TwitterGraph twitterGraph = new TwitterGraph();
-    writer.writeToFile(twitterGraph);
+    writer.writeTwitterGraphToFile(twitterGraph);
   }
 
 

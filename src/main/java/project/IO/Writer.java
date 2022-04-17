@@ -18,7 +18,7 @@ public class Writer {
     bufferedWriter = new BufferedWriter(new FileWriter(file));
   }
 
-  public void writeToFile(TwitterGraph twitterGraph) throws IOException {
+  public void writeTwitterGraphToFile(TwitterGraph twitterGraph) throws IOException {
     if (!twitterGraph.getDirection()) {
       twitterGraph.invert();
     }

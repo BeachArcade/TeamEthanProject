@@ -17,20 +17,20 @@ public class GetGraph {
     if (args[0].equals("1")) {
       TwitterGraph twitterGraph = new TwitterGraph();
       Writer write = new Writer(new File(args[1]));
-      write.writeToFile(twitterGraph);
+      write.writeTwitterGraphToFile(twitterGraph);
       write.close();
     } else if (args[0].equals("2")) {
       TwitterGraph twitterGraph = new TwitterGraph();
       twitterGraph.invert();
       Writer write = new Writer(new File(args[1]));
-      write.writeToFile(twitterGraph);
+      write.writeTwitterGraphToFile(twitterGraph);
 
     } else if (args[0].equals("3")) {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
       TwitterGraph twitterGraph = new TwitterGraph();
       reader.loadTwitterGraph(twitterGraph);
-      writer.writeToFile(twitterGraph);
+      writer.writeTwitterGraphToFile(twitterGraph);
 
     } else if (args[0].equals("4")) {
       Writer writer = new Writer(new File(args[1]));
@@ -38,7 +38,7 @@ public class GetGraph {
       TwitterGraph twitterGraph = new TwitterGraph();
       reader.loadTwitterGraph(twitterGraph);
       twitterGraph.invert();
-      writer.writeToFile(twitterGraph);
+      writer.writeTwitterGraphToFile(twitterGraph);
     }
   }
 }
