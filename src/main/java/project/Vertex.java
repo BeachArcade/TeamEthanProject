@@ -1,16 +1,29 @@
 package project;
 
+import java.util.HashMap;
 import java.util.Objects;
-import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 //import java.util.StringTokenizer;
 
 public class Vertex implements Comparable {
 
   private final String user;
   private final int hashCode;
-  private int stance = 0;
-  private int retweetNum = 1;
-  ArrayList<Hashtag> listOfHashtags = new ArrayList<>();
+  private int retweetStance = 0;
+
+  public int getHashtagStance() {
+    return hashtagStance;
+  }
+
+  public void setHashtagStance(int hashtagStance) {
+    this.hashtagStance = hashtagStance;
+  }
+
+  private int hashtagStance = 0;
+  private int retweetNum = 0;
+
+  // <Hashtag, Count>
+  HashMap<String, Integer> listOfHashtags = new HashMap<>();
 
   public Vertex(String tweetName) {
     this.user = tweetName;
@@ -21,27 +34,48 @@ public class Vertex implements Comparable {
     return user;
   }
 
-  public int getStance() {
-    return stance;
+  public int getRetweetStance() {
+    return retweetStance;
+  }
+
+  public int getCalcRetweetStance(){
+    if(getRetweetNum()!=0) {
+      return retweetStance / getRetweetNum();
+    }
+    return 0;
+  }
+
+  private int getCalcHashtagStance(){
+    if (!listOfHashtags.isEmpty()){
+      return hashtagStance /getListOfHashtagsCount();
+    }
+    return 0;
+  }
+
+  private int getListOfHashtagsCount(){
+    AtomicInteger count = new AtomicInteger();
+    listOfHashtags.values().forEach(count::addAndGet);
+    return count.get();
   }
 
   public int getCalculatedStance(){
-    return stance/getRetweetNum();
+    int stance = 0;
+    stance += getCalcRetweetStance();
+    stance+=getCalcHashtagStance();
+    return stance;
   }
 
-  public void setStance(int x) {
-    this.stance = x;
+  public void setRetweetStance(int x) {
+    this.retweetStance = x;
   }
 
-  public void changeStance(int change) {
-    this.setStance(this.getStance() + change);
+  public void changeRetweetStance(int change) {
+    this.setRetweetStance(this.getRetweetStance() + change);
   }
 
-  public ArrayList getListOfHashtags() { return listOfHashtags; }
-
-  public void setHashtagList ( ArrayList newListOfHashes) {this.listOfHashtags = newListOfHashes;}
-
-  public void addHashtagToList( Hashtag newHash) { this.listOfHashtags.add(newHash);}
+  public void changeHashtagStance(int change){
+    this.setHashtagStance(this.getHashtagStance()+change);
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -80,12 +114,11 @@ public class Vertex implements Comparable {
     return 0;
   }
 
-  public void addHashtag(Hashtag hashtag){
-    if(!listOfHashtags.contains(hashtag)){
-      hashtag.setNumOfTweets(1);
-      listOfHashtags.add(hashtag);
+  public void addHashtag(String hashtag){
+    if (listOfHashtags.containsKey(hashtag)){
+      listOfHashtags.replace(hashtag,listOfHashtags.get(hashtag), listOfHashtags.get(hashtag)+1);
     } else {
-      listOfHashtags.get(listOfHashtags.indexOf(hashtag)).setNumOfTweets(listOfHashtags.get(listOfHashtags.indexOf(hashtag)).getNumOfTweets() +1);
+      listOfHashtags.put(hashtag, 1);
     }
   }
 
