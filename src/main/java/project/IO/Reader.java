@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import project.Graphs.HashtagGraph;
 import project.Graphs.TwitterGraph;
@@ -138,9 +135,10 @@ public class Reader {
     ArrayList<Vertex> list = new ArrayList<>();
     String line;
     while ((line = nextLine()) != null) {
-      if (line.contains(hashtag.getName())) {
+      line = line.toLowerCase();
+      if (line.contains(hashtag.getName().toLowerCase())) {
         Vertex user = parseUser(line);
-        if (!list.contains(user)) {
+        if (!list.contains(user) && user != null) {
           list.add(user);
         }
         hashtag.increaseTweetNum();
@@ -166,8 +164,11 @@ public class Reader {
     }
 
   private Vertex parseUser(String tweet) {
-    String[] tweetArr = tweet.split(" ");
-    return new Vertex(tweetArr[2]);
+    if(!tweet.startsWith("1")) return null;
+    String[] tweetArr = tweet.split("\t");
+    if (tweetArr.length < 1)
+      return null;
+    return new Vertex(tweetArr[1]);
   }
 }
 
