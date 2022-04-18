@@ -18,11 +18,14 @@ public class HashtagGraph {
 
   public HashtagGraph() throws FileNotFoundException {
     initTags();
+    System.out.println("DEBUG: INIT STARTED");
     for (Hashtag tag : hashtags) {
       Reader reader = new Reader(new File("VaxData/vax tweets.txt"));
       ArrayList<Vertex> users = reader.getHashtags(tag);
       hashtagGraph.put(tag, users);
+      System.out.println(">>> " + tag.getName());
     }
+    System.out.println("DEBUG: INIT FINISHED");
   }
 
   public HashMap<Hashtag, ArrayList<Vertex>> getHashtagGraph() {
@@ -42,38 +45,32 @@ public class HashtagGraph {
   }
 
   public HashMap<Vertex,ArrayList<Hashtag>> invert() {
+    System.out.println("DEBUG: Invert starting");
     ArrayList<Hashtag> tags = new ArrayList<>();
     ArrayList<Vertex> users = new ArrayList<>();
     HashMap<Vertex, ArrayList<Hashtag>> invertGraph = new HashMap<>();
-    // Add all users and hashtags to the arrays
-    for (Map.Entry<Hashtag, ArrayList<Vertex>> entry : hashtagGraph.entrySet()) {
-      // Add tag
-      if (!tags.contains(entry.getKey())) {
-        tags.add(entry.getKey());
-      }
-      // Add user
-      for (Vertex v : entry.getValue()) {
-        if (!users.contains(v)) {
+    for(Map.Entry<Hashtag, ArrayList<Vertex>> entry: hashtagGraph.entrySet()){
+      //Add everything to the arrays
+      tags.add(entry.getKey());
+      for(Vertex v: entry.getValue()){
+        if(!users.contains(v)){
           users.add(v);
         }
       }
     }
-    // add users to the inverted map
-    for (Vertex v : users) {
-      invertGraph.put(v, new ArrayList<>());
-      //Add all hashtags to the list
-      ArrayList<Hashtag> newTags = new ArrayList<>();
-      for (Hashtag h : tags) {
-        for (Vertex otherV : hashtagGraph.get(h)) {
-          if (v.compareTo(otherV) == 0) {
-            if (!newTags.contains(h)) {
-              newTags.add(h);
-            }
+    System.out.println(">>>Arrays added");
+    int count = 0;
+      for(Vertex v: users){
+        count++;
+        ArrayList<Hashtag> tagList = new ArrayList<>();
+        for(Hashtag h: tags){
+          if(hashtagGraph.get(h).contains(v)){
+            tagList.add(h);
           }
         }
+      if (count % 1000 == 0) System.out.println(">>>Users " + count);
+        invertGraph.put(v, tagList);
       }
-
-    }
     return invertGraph;
   }
 
