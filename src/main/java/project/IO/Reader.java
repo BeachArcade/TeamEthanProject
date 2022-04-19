@@ -138,6 +138,7 @@ public class Reader {
       line = line.toLowerCase();
       if (line.contains(hashtag.getName().toLowerCase())) {
         Vertex user = parseUser(line);
+        // TODO fix this!
         if (!list.contains(user) && user != null) {
           list.add(user);
         }
@@ -169,6 +170,25 @@ public class Reader {
     if (tweetArr.length < 1)
       return null;
     return new Vertex(tweetArr[1]);
+  }
+
+  public HashMap<Hashtag, ArrayList<Vertex>> loadHashtagGraph(){
+    HashMap<Hashtag, ArrayList<Vertex>> graph = new HashMap<>();
+    String line;
+    while((line = nextLine()) != null){
+      String[] split = line.split("\t");
+      Hashtag h = new Hashtag(split[0]);
+      ArrayList<Vertex> list = new ArrayList<>();
+      String[] allUsers =  split[1].split(",");
+      for(String userStr : allUsers){
+        Vertex user = new Vertex(userStr);
+        if(!list.contains(user)){
+          list.add(user);
+        }
+      }
+      graph.put(h,list);
+    }
+    return graph;
   }
 }
 
