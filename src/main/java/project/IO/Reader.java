@@ -14,18 +14,11 @@ import project.Vertexes.Hashtag;
 import project.Vertexes.Vertex;
 
 public class Reader {
-  Lexicon lexicon;
-
   BufferedReader bufferedReader;
   StringTokenizer stringTokenizer;
 
   public Reader(File file) throws FileNotFoundException {
     bufferedReader = new BufferedReader(new FileReader(file));
-  }
-
-  public Reader(File file, Lexicon lexicon) throws FileNotFoundException {
-    this.bufferedReader = new BufferedReader(new FileReader(file));
-    this.lexicon = lexicon;
   }
 
   public String next() {
