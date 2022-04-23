@@ -6,9 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import project.IO.Reader;
+import project.Lexicon;
 import project.Vertexes.Hashtag;
+import project.Vertexes.Tag;
 import project.Vertexes.TweetArc;
 import project.Vertexes.Vertex;
 /*TODO:
@@ -16,7 +21,7 @@ import project.Vertexes.Vertex;
 
 // !default direction is Up
 public class TwitterGraph implements Graph {
-
+  Lexicon lexicon;
   // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
   private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
     {
@@ -143,6 +148,23 @@ public class TwitterGraph implements Graph {
     System.out.println("Graph successfully loaded");
   }
 
+  public TwitterGraph(Lexicon lexicon) throws FileNotFoundException {
+    this.lexicon = lexicon;
+    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
+    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
+//    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); // For Testing
+//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For Testing
+
+    userReader.populateUsers(this);
+    tweetReader.populateArcs(this);
+
+
+
+    percolate();
+
+    System.out.println("Graph successfully loaded");
+  }
+
   public TwitterGraph(File input) throws FileNotFoundException {
     Reader reader = new Reader(input);
     reader.loadTwitterGraph(this);
@@ -230,6 +252,37 @@ public class TwitterGraph implements Graph {
     // if the retweeted user does not exist create new entry
     if (!adjVertices.containsKey(new Vertex(retweetStr))) {
       add(retweetStr);
+    }
+    /* is retweeter in the user's arcs?
+        Yes? increase strength.
+        No? add it to the empty list
+    */
+    if (adjVertices.get(user).contains(retweet)) {
+      adjVertices.get(user).get(adjVertices.get(user).indexOf(retweet)).increaseStrength();
+    } else {
+      adjVertices.get(user).add(retweet);
+      Collections.sort(adjVertices.get(user));
+    }
+  }
+
+  public void add(String userStr, String retweetUser, String retweetUsersTweet) {
+    Vertex user = new Vertex(userStr);
+    TweetArc retweet = new TweetArc(retweetUser);
+    // if the user doesn't exist create new entry
+    if (!adjVertices.containsKey(user)) {
+      add(userStr);
+    }
+    // if the retweeted user does not exist create new entry
+    if (!adjVertices.containsKey(new Vertex(retweetUser))) {
+      add(retweetUser);
+      String[] tweetContent;
+        tweetContent = retweetUsersTweet.split("\t")[2].split(":")[1].split(" ");
+        for (String word : tweetContent) {
+          if (word.startsWith("#")) {
+            addHashtag(new Hashtag(word)); // Add hashtag to Graph
+            getVertex(new Vertex(retweetUser)).addHashtag(word); // Add hashtag to user
+        }
+      }
     }
     /* is retweeter in the user's arcs?
         Yes? increase strength.
@@ -354,7 +407,7 @@ public class TwitterGraph implements Graph {
         }
       }
 
-      if(i != 20) {
+      if (i != 20) {
         // Reset the Stance and count of each hashtag to give a more accurate representation
         for (Hashtag hashtag : hashtags) {
           hashtag.changeNumOfTweets(0);
@@ -375,6 +428,34 @@ public class TwitterGraph implements Graph {
   public void addHashtag(Hashtag hashtag) {
     if (!hashtags.contains(hashtag)) {
       hashtags.add(hashtag);
+    }
+  }
+
+  public void splitHashtags(){
+    List<String> tags = lexicon.getTags().stream().map(Tag::getName).toList();
+    for(Hashtag hashtag: hashtags){
+      ArrayList<String> containedTags = new ArrayList<>();
+
+      String hashtagName = hashtag.getName();
+      if (hashtagName.startsWith("#")){
+        hashtagName = hashtagName.replace("#","");
+      }
+      // First check for possible camelCase tags
+      for(String tag: tags){
+        if (hashtagName.contains(tag)){
+          containedTags.add(tag);
+          hashtagName = hashtagName.replace(tag,"");
+        }
+      }
+      // Then check for lowercase tags
+      String hashtagNameLower = hashtagName.toLowerCase();
+      for(String tag: tags){
+        if (hashtagName.contains(tag.toLowerCase())){
+          containedTags.add(tag);
+          hashtagName = hashtagName.replace(tag.toLowerCase(),"");
+        }
+      }
+      hashtag.setTags(containedTags);
     }
   }
 
