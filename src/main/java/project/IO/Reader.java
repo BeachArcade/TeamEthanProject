@@ -14,12 +14,18 @@ import project.Vertexes.Hashtag;
 import project.Vertexes.Vertex;
 
 public class Reader {
+  Lexicon lexicon;
 
   BufferedReader bufferedReader;
   StringTokenizer stringTokenizer;
 
   public Reader(File file) throws FileNotFoundException {
     bufferedReader = new BufferedReader(new FileReader(file));
+  }
+
+  public Reader(File file, Lexicon lexicon) throws FileNotFoundException {
+    this.bufferedReader = new BufferedReader(new FileReader(file));
+    this.lexicon = lexicon;
   }
 
   public String next() {
@@ -83,10 +89,11 @@ public class Reader {
         String user = line.split("\t")[1];
         String content = line.split("\t")[2];
         if (content.startsWith("RT")) {
-          String retweededUser = content.split(":", 0)[0];
-          if (retweededUser.length() > 3) {
-            retweededUser = retweededUser.substring(3);
-            twitterGraph.add(user, retweededUser);
+          String retweetedUser = content.split(":", 0)[0];
+          String retweetedUserstweet = content.split(":")[1];
+          if (retweetedUser.length() > 3) {
+            retweetedUser = retweetedUser.substring(3);
+            twitterGraph.add(user, retweetedUser, retweetedUserstweet);
           } else {
             twitterGraph.add(user);
           }
