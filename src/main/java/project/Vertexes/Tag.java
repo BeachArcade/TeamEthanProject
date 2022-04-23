@@ -1,64 +1,83 @@
 package project.Vertexes;
 
-import java.util.Objects;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Tag {
+public class Tag implements Comparable<Tag> {
 
-    private final String tagName;
-    private final int hashCode;
-    private ArrayList<String> references = new ArrayList<String>;
-    private int stance = 0;
+  private final String tagName;
+  private final int hashCode;
+  private ArrayList<String> references = new ArrayList<String>();
+  private int stance = 0;
 
-    public Tag(String tag) {
-        this.tagName = tag;
-        this.hashCode = Objects.hashCode(tag);
+  public Tag(String tag) {
+    this.tagName = tag;
+    this.hashCode = Objects.hashCode(tag);
+  }
+
+  public Tag(String tag, String references) {
+    this.tagName = tag;
+    this.hashCode = Objects.hashCode(tag);
+    addReferences(references);
+  }
+
+  public String getName() {
+    return tagName;
+  }
+
+  public int getStance() {
+    return stance;
+  }
+
+  public void setStance(int x) {
+    this.stance = x;
+  }
+
+  public ArrayList<String> getReferences() {
+    return references;
+  }
+
+  public void setReferences(ArrayList<String> newReferences) {
+    references = newReferences;
+  }
+
+  public void addReference(String newReference) {
+    references.add(newReference);
+  }
+
+  public void addReferences(String references) {
+    if (references.contains(", ")) {
+      for (String reference : references.split(", ")) {
+        addReference(reference);
+      }
+    } else {
+      addReference(references);
     }
+  }
 
-    public String getName() { return tagName; }
+  public int compareTo(Tag genericThat) {
+    return Integer.compare(genericThat.hashCode, this.hashCode);
+  }
 
-    public int getStance() {
-        return stance;
+  @Override
+  public int hashCode() {
+    return this.hashCode;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    public void setStance(int x) {
-        this.stance = x;
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
     }
+    Tag that = (Tag) o;
+    return this.hashCode == that.hashCode;
+  }
 
-    public ArrayList<String> getReferences() { return references; }
-
-    public void setReferences( ArrayList<String> newReferences ) { references = newReferences; }
-
-    public void addReference ( String newReference) { references.add(newReference); }
-
-    /*
-    public int compareTo(Hashtag genericThat) {
-        return Integer.compare(genericThat.numOfTweets, this.numOfTweets);
-    }
-
-    public int compareTo(Object o) {
-        if (o.getClass().equals(this.getClass())) {
-            return this.compareTo((Hashtag) o);
-        }
-        return 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.hashCode;
-    }
-
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Hashtag that = (Hashtag) o;
-        return this.hashCode == that.hashCode;
-    }
-
-
-     */
+  @Override
+  public String toString() {
+    return "'" + tagName + "'\t" + "{" +references.toString().replace("[","").replace("]","") + '}';
+  }
 }
