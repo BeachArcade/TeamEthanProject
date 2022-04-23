@@ -14,15 +14,13 @@ public class Hashtag {
   public Hashtag(String hashtag) {
     this.tagName = hashtag;
     this.hashCode = Objects.hashCode(hashtag);
-
-    
   }
 
-  public ArrayList<String> getTags() {
+  public ArrayList<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(ArrayList<String> tags) {
+  public void setTags(ArrayList<Tag> tags) {
     this.tags = tags;
   }
 
@@ -39,10 +37,18 @@ public class Hashtag {
   }
 
   public int getCalculatedStance() {
+
+    int returnValue = stance;
+
     if (getNumOfTweets() != 0) {
-      return stance / getNumOfTweets();
+
+      for (Tag tag : tags){
+        returnValue += tag.getStance();
+      }
+
+      return returnValue / getNumOfTweets();
     }
-    return 0;
+    return returnValue;
   }
 
   public void changeStance(int change) {

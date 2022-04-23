@@ -434,14 +434,14 @@ public class TwitterGraph implements Graph {
   public void splitHashtags(){
     List<String> tags = lexicon.getTags().stream().map(Tag::getName).toList();
     for(Hashtag hashtag: hashtags){
-      ArrayList<String> containedTags = new ArrayList<>();
+      ArrayList<Tag> containedTags = new ArrayList<>();
 
       String hashtagName = hashtag.getName();
       if (hashtagName.startsWith("#")){
         hashtagName = hashtagName.replace("#","");
       }
       // First check for possible camelCase tags
-      for(String tag: tags){
+      for(Tag tag: tags){
         if (hashtagName.contains(tag)){
           containedTags.add(tag);
           hashtagName = hashtagName.replace(tag,"");
