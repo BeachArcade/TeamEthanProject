@@ -149,22 +149,6 @@ public class Reader {
     return list;
   }
 
-    public void loadHashtagGraph(HashtagGraph hashtagGraph) {
-
-      /*
-
-      TODO: Fit to hashtag graph format
-
-        String line;
-        while ((line = nextLine()) != null) {
-            String[] str = line.split("\t");
-            List<String> list = Arrays.asList(str[2].replace("{", "").replace("}", "").split(","));
-            hashtagGraph.add(new Hashtag(str[0]), Integer.parseInt(str[1]), list);
-        }
-
-       */
-    }
-
   private Vertex parseUser(String tweet) {
     if(!tweet.startsWith("1")) return null;
     String[] tweetArr = tweet.split("\t");

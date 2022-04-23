@@ -14,6 +14,8 @@ public class Hashtag {
   public Hashtag(String hashtag) {
     this.tagName = hashtag;
     this.hashCode = Objects.hashCode(hashtag);
+
+    
   }
 
   public ArrayList<String> getTags() {
