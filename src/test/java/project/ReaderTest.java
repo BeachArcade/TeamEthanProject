@@ -52,8 +52,9 @@ class ReaderTest {
       String content = line.split("\t")[2];
       if (content.startsWith("RT")) {
         String retweededUser = content.split(":", 0)[0];
+        String retweetedUserstweet = content.split(":")[1];
         retweededUser = retweededUser.substring(3);
-        System.out.println(user + " " + retweededUser);
+        System.out.println(user + " " + retweededUser + " " + retweetedUserstweet);
       } else {
         System.out.println(user);
       }
