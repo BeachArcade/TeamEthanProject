@@ -71,4 +71,15 @@ class ReaderTest {
       }
     }
   }
+
+  @Test
+  public void readLexicon() {
+    String line = "0. covid [problem, ref:covid]";
+    String tag = line.split(" ", 2)[1].split(" ",2)[0];
+    String[] str = line.split(" ", 2)[1].split(" ",2)[1].replace("[", "").replace("]","").split(", ");
+    for(String s: str){
+      System.out.println(s);
+    }
+  }
+
 }

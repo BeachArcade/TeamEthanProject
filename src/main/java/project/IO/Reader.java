@@ -9,6 +9,7 @@ import java.util.*;
 
 import project.Graphs.HashtagGraph;
 import project.Graphs.TwitterGraph;
+import project.Lexicon;
 import project.Vertexes.Hashtag;
 import project.Vertexes.Vertex;
 
@@ -190,5 +191,15 @@ public class Reader {
     }
     return graph;
   }
+
+  public void loadLexicon(Lexicon lexicon){
+    String line;
+    while((line = nextLine()) != null){
+      String tag = line.split(" ", 2)[1].split(" ",2)[0];
+      String references = line.split(" ", 2)[1].split(" ",2)[1].replace("[", "").replace("]","");
+      lexicon.addTag(tag,references);
+    }
+  }
+
 }
 
