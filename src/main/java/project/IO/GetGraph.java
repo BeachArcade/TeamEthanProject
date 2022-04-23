@@ -3,6 +3,7 @@ package project.IO;
 import java.io.File;
 import java.io.IOException;
 import project.Graphs.TwitterGraph;
+import project.Lexicon;
 
 public class GetGraph {
 
@@ -14,30 +15,35 @@ public class GetGraph {
     System.out.println("3.) Load Graph");
     System.out.println("4.) Load and invert graph");
 
+    Lexicon lexicon = new Lexicon();
+
     if (args[0].equals("1")) {
-      TwitterGraph twitterGraph = new TwitterGraph();
+      TwitterGraph twitterGraph = new TwitterGraph(lexicon);
       Writer write = new Writer(new File(args[1]));
       write.writeTwitterGraphToFile(twitterGraph);
       write.close();
     } else if (args[0].equals("2")) {
-      TwitterGraph twitterGraph = new TwitterGraph();
+      TwitterGraph twitterGraph = new TwitterGraph(lexicon);
       twitterGraph.invert();
       Writer write = new Writer(new File(args[1]));
       write.writeTwitterGraphToFile(twitterGraph);
+      write.close();
     } else if (args[0].equals("3")) {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
-      TwitterGraph twitterGraph = new TwitterGraph();
+      TwitterGraph twitterGraph = new TwitterGraph(lexicon);
       reader.loadTwitterGraph(twitterGraph);
       writer.writeTwitterGraphToFile(twitterGraph);
+      writer.close();
 
     } else if (args[0].equals("4")) {
       Writer writer = new Writer(new File(args[1]));
       Reader reader = new Reader(new File(args[2]));
-      TwitterGraph twitterGraph = new TwitterGraph();
+      TwitterGraph twitterGraph = new TwitterGraph(lexicon);
       reader.loadTwitterGraph(twitterGraph);
       twitterGraph.invert();
       writer.writeTwitterGraphToFile(twitterGraph);
+      writer.close();
     }
   }
 }
