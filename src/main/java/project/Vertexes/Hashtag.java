@@ -1,5 +1,6 @@
 package project.Vertexes;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hashtag {
@@ -8,10 +9,19 @@ public class Hashtag {
   private final int hashCode;
   private int stance = 0;
   private int numOfTweets = 0;
+  private ArrayList<String> tags;
 
   public Hashtag(String hashtag) {
     this.tagName = hashtag;
     this.hashCode = Objects.hashCode(hashtag);
+  }
+
+  public ArrayList<String> getTags() {
+    return tags;
+  }
+
+  public void setTags(ArrayList<String> tags) {
+    this.tags = tags;
   }
 
   public String getName() {
