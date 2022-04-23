@@ -1,7 +1,6 @@
 package project.Graphs;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +14,9 @@ import project.Vertexes.Vertex;
 public class HashtagGraph {
 
   private final ArrayList<Hashtag> hashtags = new ArrayList<>();
-  private ArrayList<Vertex> users = new ArrayList<>();
+  private final ArrayList<Vertex> users = new ArrayList<>();
   private HashMap<Hashtag, ArrayList<Vertex>> hashtagGraph = new HashMap<>();
-  private HashMap<Vertex, ArrayList<Hashtag>> invertedGraph = new HashMap<>();
+  private final HashMap<Vertex, ArrayList<Hashtag>> invertedGraph = new HashMap<>();
   private boolean direction = true; // true == up
 
   public HashtagGraph() throws IOException {
@@ -26,14 +25,13 @@ public class HashtagGraph {
     for (Hashtag tag : hashtags) {
       Reader reader = new Reader(new File("VaxData/vax tweets.txt"));
       ArrayList<Vertex> users = reader.getHashtags(tag);
-      for(Vertex user: users){
+      for (Vertex user : users) {
         // if the user is not in the inverted graph add it;
-        if(!invertedGraph.containsKey(user)){
+        if (!invertedGraph.containsKey(user)) {
           ArrayList<Hashtag> hashtagList = new ArrayList<>();
           hashtagList.add(tag);
           invertedGraph.put(user, hashtagList);
-        }
-        else{
+        } else {
           invertedGraph.get(user).add(tag);
         }
       }
@@ -41,11 +39,12 @@ public class HashtagGraph {
       System.out.println(">>> " + tag.getName());
     }
     System.out.println("DEBUG: INIT FINISHED");
-    Writer writer = new Writer(new File ("VaxData/hashGraph.txt"));
+    Writer writer = new Writer(new File("VaxData/hashGraph.txt"));
     System.out.println("Writing to file");
     writer.writeHashtagGraphToFile(this);
     System.out.println("Writer done");
   }
+
   public HashtagGraph(String file) throws IOException {
     Reader reader = new Reader(new File(file));
     System.out.println("DEBUG: LOADING GRAPH FROM FILE");
@@ -83,7 +82,7 @@ public class HashtagGraph {
     this.direction = direction;
   }
 
-  public HashMap<Vertex,ArrayList<Hashtag>> invert() {
+  public HashMap<Vertex, ArrayList<Hashtag>> invert() {
     return invertedGraph;
   }
 
@@ -93,15 +92,17 @@ public class HashtagGraph {
   public void remove(Hashtag user) {
   }
 
-  private void initTags(){
-    String[] anti = "#faucifraud,#notovaccine,#novax,#antivaxxers,#ivermectin,#billgates,#arrestbillgates,#scamdemic,#plandemic,#covidlies,#BuiltInALab,#clotshot,#NoNewNormal,#FacuiLiedPeopleDied,#NoVaccinePassportsAnywhere,#FauciEmails,#Convid,#fraudci,#AdverseReactions,#CovidGate,#unvaccinated,#covidiots,#vaccineskill,#vaccinesharm,#getvaxxed,#DoNotComply,#idonotconsent,#NoMedicalApartheid,#NoVaccineMandates".split(",");
-    String[] pro = "#getvaccinated,#vax,#vaccine,#covidisnotover,#wearamask,#notacold,#getboosted,#nottheflu,#vaccinessavelives,#GetTheVax,#getvaccinatednow,#CovidIsNotDoneWithUs,#vaccinated,#fullyVaxxed,#vaccinesWork,#GetBoostedNow,#GetYourKidsVaccinatedNow,#GetYourKidsBoostedNow".split(",");
+  private void initTags() {
+    String[] anti = "#faucifraud,#notovaccine,#novax,#antivaxxers,#ivermectin,#billgates,#arrestbillgates,#scamdemic,#plandemic,#covidlies,#BuiltInALab,#clotshot,#NoNewNormal,#FacuiLiedPeopleDied,#NoVaccinePassportsAnywhere,#FauciEmails,#Convid,#fraudci,#AdverseReactions,#CovidGate,#unvaccinated,#covidiots,#vaccineskill,#vaccinesharm,#getvaxxed,#DoNotComply,#idonotconsent,#NoMedicalApartheid,#NoVaccineMandates".split(
+        ",");
+    String[] pro = "#getvaccinated,#vax,#vaccine,#covidisnotover,#wearamask,#notacold,#getboosted,#nottheflu,#vaccinessavelives,#GetTheVax,#getvaccinatednow,#CovidIsNotDoneWithUs,#vaccinated,#fullyVaxxed,#vaccinesWork,#GetBoostedNow,#GetYourKidsVaccinatedNow,#GetYourKidsBoostedNow".split(
+        ",");
 
-    for(String s : anti){
+    for (String s : anti) {
       hashtags.add(new Hashtag(s));
       hashtags.get(hashtags.size() - 1).setStance(-1000);
     }
-    for(String s : pro){
+    for (String s : pro) {
       hashtags.add(new Hashtag(s));
       hashtags.get(hashtags.size() - 1).setStance(1000);
     }
