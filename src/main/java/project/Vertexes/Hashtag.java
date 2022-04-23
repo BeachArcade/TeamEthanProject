@@ -9,7 +9,7 @@ public class Hashtag {
   private final int hashCode;
   private int stance = 0;
   private int numOfTweets = 0;
-  private ArrayList<String> tags;
+  private ArrayList<Tag> tags;
 
   public Hashtag(String hashtag) {
     this.tagName = hashtag;
