@@ -38,17 +38,12 @@ public class Hashtag {
 
   public int getCalculatedStance() {
 
-    int returnValue = stance;
+    int tweets = this.getNumOfTweets();
 
-    if (getNumOfTweets() != 0) {
+    if (tweets == 0) { return this.stance; }
 
-      for (Tag tag : tags){
-        returnValue += tag.getStance();
-      }
+    return (int) (tags.stream().mapToInt(Tag::getStance).sum() / (double)tweets);
 
-      return returnValue / getNumOfTweets();
-    }
-    return returnValue;
   }
 
   public void changeStance(int change) {
