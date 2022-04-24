@@ -15,13 +15,9 @@ public class Tag implements Comparable<Tag> {
     this.hashCode = Objects.hashCode(tag);
     addReferences(references);
 
-    if (this.tagName == "accepting"){
-      this.setStance(1);
-    }
+    if (this.references.contains("accepting")) { this.setStance(1); }
 
-    if (this.tagName == "rejecting"){
-      this.setStance(-1);
-    }
+    if (this.references.contains("rejecting")){ this.setStance(-1); }
   }
 
   public String getName() {

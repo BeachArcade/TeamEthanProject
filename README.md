@@ -21,5 +21,5 @@ Team Members: Ethan Chan(Team Leader), Ethan Hammond, and Sahil Mehra.
 ### Responsibilities
 
 - Ethan Chan: TwitterGraph, TweetArc, Vertex classes and testing
-- Ethan Hammond: Interfaces
+- Ethan Hammond: Interfaces, Tag, Vertex, Hashtag classes, and testing
 - Sahil Mehra: Reader, Writer classes and testing
