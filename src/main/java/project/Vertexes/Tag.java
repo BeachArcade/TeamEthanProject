@@ -10,6 +10,11 @@ public class Tag implements Comparable<Tag> {
   private ArrayList<String> references = new ArrayList<String>();
   private int stance = 0;
 
+  public Tag(String tag) {
+    this.tagName = tag;
+    this.hashCode = Objects.hashCode(tag);
+  }
+
   public Tag(String tag, String references) {
     this.tagName = tag;
     this.hashCode = Objects.hashCode(tag);
