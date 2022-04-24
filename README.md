@@ -3,6 +3,8 @@ Repository for the 3rd sprint of Software Engineering Project Module
 
 Team Members: Ethan Chan(Team Leader), Ethan Hammond, and Sahil Mehra.
 
+Lexicon, tag splits, and tag analyses are stored in current existing graphs
+
 ## How To Run
 
 - Go into the `root` directory through command line
