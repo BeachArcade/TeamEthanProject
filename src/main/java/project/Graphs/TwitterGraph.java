@@ -1,4 +1,4 @@
-package project.Graphs;
+package project.graphs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,23 +6,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import project.IO.Reader;
+
 import project.Lexicon;
 import project.Vertexes.Hashtag;
-import project.Vertexes.Tag;
 import project.Vertexes.TweetArc;
 import project.Vertexes.Vertex;
 /*TODO:
  * */
+import project.io.Reader;
 
 // !default direction is Up
-public class TwitterGraph implements Graph {
+public class TwitterGraph implements Graph<TweetArc> {
   Lexicon lexicon;
-  // Hashmap of evangelists, positive integer for pro-vax, negative integer for anti-vax
+  // Hashmap of evangelists, positive integer for pro-vax, negative integer for
+  // anti-vax
   private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
     {
       // Add keys and values (username, stance)
@@ -137,8 +135,10 @@ public class TwitterGraph implements Graph {
   public TwitterGraph() throws FileNotFoundException {
     Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
     Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-//    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); // For Testing
-//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For Testing
+    // Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); //
+    // For Testing
+    // Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For
+    // Testing
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
@@ -152,13 +152,13 @@ public class TwitterGraph implements Graph {
     this.lexicon = lexicon;
     Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
     Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-//    Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); // For Testing
-//    Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For Testing
+    // Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); //
+    // For Testing
+    // Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For
+    // Testing
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
-
-
 
     percolate();
 
@@ -225,18 +225,15 @@ public class TwitterGraph implements Graph {
     direction = !direction;
   }
 
-  public void add(Vertex user, int stance, List<?> retweets) {
+  public void add(Vertex user, int stance, List<TweetArc> retweets) {
     user.setRetweetStance(stance);
     add(user, retweets);
   }
 
-  /**
-   * Maps a user with its retweets
-   */
   @Override
-  public void add(Vertex user, List<?> retweets) {
-    Collections.sort((List<TweetArc>) retweets);
-    adjVertices.put(user, (List<TweetArc>) retweets);
+  public void add(Vertex user, List<TweetArc> retweets) {
+    Collections.sort(retweets);
+    adjVertices.put(user, retweets);
   }
 
   /**
@@ -253,10 +250,11 @@ public class TwitterGraph implements Graph {
     if (!adjVertices.containsKey(new Vertex(retweetStr))) {
       add(retweetStr);
     }
-    /* is retweeter in the user's arcs?
-        Yes? increase strength.
-        No? add it to the empty list
-    */
+    /*
+     * is retweeter in the user's arcs?
+     * Yes? increase strength.
+     * No? add it to the empty list
+     */
     if (adjVertices.get(user).contains(retweet)) {
       adjVertices.get(user).get(adjVertices.get(user).indexOf(retweet)).increaseStrength();
     } else {
@@ -276,18 +274,19 @@ public class TwitterGraph implements Graph {
     if (!adjVertices.containsKey(new Vertex(retweetUser))) {
       add(retweetUser);
       String[] tweetContent;
-        tweetContent = retweetUsersTweet.split("\t")[2].split(":")[1].split(" ");
-        for (String word : tweetContent) {
-          if (word.startsWith("#")) {
-            addHashtag(new Hashtag(word)); // Add hashtag to Graph
-            getVertex(new Vertex(retweetUser)).addHashtag(word); // Add hashtag to user
+      tweetContent = retweetUsersTweet.split("\t")[2].split(":")[1].split(" ");
+      for (String word : tweetContent) {
+        if (word.startsWith("#")) {
+          addHashtag(new Hashtag(word)); // Add hashtag to Graph
+          getVertex(new Vertex(retweetUser)).addHashtag(word); // Add hashtag to user
         }
       }
     }
-    /* is retweeter in the user's arcs?
-        Yes? increase strength.
-        No? add it to the empty list
-    */
+    /*
+     * is retweeter in the user's arcs?
+     * Yes? increase strength.
+     * No? add it to the empty list
+     */
     if (adjVertices.get(user).contains(retweet)) {
       adjVertices.get(user).get(adjVertices.get(user).indexOf(retweet)).increaseStrength();
     } else {
@@ -310,10 +309,10 @@ public class TwitterGraph implements Graph {
     adjVertices.remove(user);
   }
 
-
-  /* Format:
-     retweeter{retweeted users,...}
-  */
+  /*
+   * Format:
+   * retweeter{retweeted users,...}
+   */
   public String toString() {
     StringBuilder str = new StringBuilder();
     for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
@@ -326,7 +325,7 @@ public class TwitterGraph implements Graph {
     return str.toString();
   }
 
-  //Strip non retweeters
+  // Strip non retweeters
   public void stripNonRetweeters() {
     for (Map.Entry<Vertex, List<TweetArc>> entry : adjVertices.entrySet()) {
       if (entry.getValue().size() < 1) {
@@ -337,7 +336,6 @@ public class TwitterGraph implements Graph {
 
   public void sort() {
     ArrayList<Vertex> list = new ArrayList<>();
-    int count = 0;
     if (direction) {
       System.out.println("Not Inverted: Inverting now");
       invert();
@@ -349,10 +347,9 @@ public class TwitterGraph implements Graph {
     Collections.sort(list);
   }
 
-  //Overloaded sort to return
+  // Overloaded sort to return
   public ArrayList<Vertex> getEvangelists(int n) {
     ArrayList<Vertex> list = new ArrayList<>();
-    int count = 0;
     if (direction) {
       System.out.println("Not Inverted: Inverting now");
       invert();
@@ -408,7 +405,8 @@ public class TwitterGraph implements Graph {
       }
 
       if (i != 20) {
-        // Reset the Stance and count of each hashtag to give a more accurate representation
+        // Reset the Stance and count of each hashtag to give a more accurate
+        // representation
         for (Hashtag hashtag : hashtags) {
           hashtag.changeNumOfTweets(0);
           hashtag.setStance(0);
@@ -431,36 +429,8 @@ public class TwitterGraph implements Graph {
     }
   }
 
-  public void splitHashtags(){
-    List<String> tags = lexicon.getTags().stream().map(Tag::getName).toList();
-    for(Hashtag hashtag: hashtags){
-      ArrayList<Tag> containedTags = new ArrayList<>();
-
-      String hashtagName = hashtag.getName();
-      if (hashtagName.startsWith("#")){
-        hashtagName = hashtagName.replace("#","");
-      }
-      // First check for possible camelCase tags
-      for(Tag tag: tags){
-        if (hashtagName.contains(tag)){
-          containedTags.add(tag);
-          hashtagName = hashtagName.replace(tag,"");
-        }
-      }
-      // Then check for lowercase tags
-      String hashtagNameLower = hashtagName.toLowerCase();
-      for(String tag: tags){
-        if (hashtagName.contains(tag.toLowerCase())){
-          containedTags.add(tag);
-          hashtagName = hashtagName.replace(tag.toLowerCase(),"");
-        }
-      }
-      hashtag.setTags(containedTags);
-    }
+  public void splitHashtags() {
+    for (Hashtag hashtag : this.hashtags)
+      hashtag.calculateContainedTags(lexicon);
   }
-
 }
-
-
-
-

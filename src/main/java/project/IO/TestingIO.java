@@ -1,4 +1,4 @@
-package project.IO;
+package project.io;
 
 import java.util.StringTokenizer;
 
@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
  */
 public class TestingIO {
 
-  //Find out if a tweet is retweeted or not;
+  // Find out if a tweet is retweeted or not;
   public boolean filterRT(String str) {
     StringTokenizer tokenizer = new StringTokenizer(str, "\t");
     tokenizer.nextToken();

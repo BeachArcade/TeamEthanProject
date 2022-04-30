@@ -1,4 +1,4 @@
-package project.IO;
+package project.io;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,12 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-import project.Graphs.HashtagGraph;
-import project.Graphs.TwitterGraph;
 import project.Lexicon;
-import project.Vertexes.Hashtag;
-import project.Vertexes.Vertex;
+import project.graphs.TwitterGraph;
+import project.vertices.Hashtag;
+import project.vertices.TweetArc;
+import project.vertices.Vertex;
 
 public class Reader {
   BufferedReader bufferedReader;
@@ -31,7 +32,6 @@ public class Reader {
     }
     return stringTokenizer.nextToken();
   }
-
 
   public long nextLong() {
     return Long.parseLong(next());
@@ -104,23 +104,25 @@ public class Reader {
   }
 
   /**
-   * This reads a previously saved graph file and then passes the input to create a graph
+   * This reads a previously saved graph file and then passes the input to create
+   * a graph
    */
   public void loadTwitterGraph(TwitterGraph twitterGraph) {
     String line;
     while ((line = nextLine()) != null) {
       String[] str = line.split("\t");
-      List<String> list = Arrays.asList(str[2].replace("{", "").replace("}", "").split(","));
+      List<TweetArc> list = Arrays.asList(str[2].replace("{", "").replace("}", "").split(",")).stream()
+          .map(TweetArc::new).collect(Collectors.toList());
       twitterGraph.add(new Vertex(str[0]), Integer.parseInt(str[1]), list);
     }
   }
 
   public ArrayList<String> getTweets(Vertex user) {
-    String line, userStr;
+    String line;
     ArrayList<String> list = new ArrayList<>();
     while ((line = nextLine()) != null) {
       if (line.contains(user.getData())) {
-        //Tokenize and strip irrelevant data
+        // Tokenize and strip irrelevant data
         String[] arr = line.split("\t");
         if (arr[2].length() > 2) {
           if (!arr[2].startsWith("RT")) {
@@ -150,40 +152,40 @@ public class Reader {
   }
 
   private Vertex parseUser(String tweet) {
-    if(!tweet.startsWith("1")) return null;
+    if (!tweet.startsWith("1"))
+      return null;
     String[] tweetArr = tweet.split("\t");
     if (tweetArr.length < 1)
       return null;
     return new Vertex(tweetArr[1]);
   }
 
-  public HashMap<Hashtag, ArrayList<Vertex>> loadHashtagGraph(){
+  public HashMap<Hashtag, ArrayList<Vertex>> loadHashtagGraph() {
     HashMap<Hashtag, ArrayList<Vertex>> graph = new HashMap<>();
     String line;
-    while((line = nextLine()) != null){
+    while ((line = nextLine()) != null) {
       String[] split = line.split("\t");
       Hashtag h = new Hashtag(split[0]);
       ArrayList<Vertex> list = new ArrayList<>();
-      String[] allUsers =  split[1].split(",");
-      for(String userStr : allUsers){
+      String[] allUsers = split[1].split(",");
+      for (String userStr : allUsers) {
         Vertex user = new Vertex(userStr);
-        if(!list.contains(user)){
+        if (!list.contains(user)) {
           list.add(user);
         }
       }
-      graph.put(h,list);
+      graph.put(h, list);
     }
     return graph;
   }
 
-  public void loadLexicon(Lexicon lexicon){
+  public void loadLexicon(Lexicon lexicon) {
     String line;
-    while((line = nextLine()) != null){
-      String tag = line.split(" ", 2)[1].split(" ",2)[0];
-      String references = line.split(" ", 2)[1].split(" ",2)[1].replace("[", "").replace("]","");
-      lexicon.addTag(tag,references);
+    while ((line = nextLine()) != null) {
+      String tag = line.split(" ", 2)[1].split(" ", 2)[0];
+      String references = line.split(" ", 2)[1].split(" ", 2)[1].replace("[", "").replace("]", "");
+      lexicon.addTag(tag, references);
     }
   }
 
 }
-

@@ -1,11 +1,10 @@
-package project.Vertexes;
+package project.vertices;
 
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-//import java.util.StringTokenizer;
 
-public class Vertex implements Comparable {
+public class Vertex implements Comparable<Vertex> {
 
   public HashMap<String, Integer> getListOfHashtags() {
     return listOfHashtags;
@@ -46,30 +45,30 @@ public class Vertex implements Comparable {
     return retweetStance;
   }
 
-  public int getCalcRetweetStance(){
-    if(getRetweetNum()!=0) {
+  public int getCalcRetweetStance() {
+    if (getRetweetNum() != 0) {
       return retweetStance / getRetweetNum();
     }
     return 0;
   }
 
-  private int getCalcHashtagStance(){
-    if (!listOfHashtags.isEmpty()){
-      return hashtagStance /getListOfHashtagsCount();
+  private int getCalcHashtagStance() {
+    if (!listOfHashtags.isEmpty()) {
+      return hashtagStance / getListOfHashtagsCount();
     }
     return 0;
   }
 
-  private int getListOfHashtagsCount(){
+  private int getListOfHashtagsCount() {
     AtomicInteger count = new AtomicInteger();
     listOfHashtags.values().forEach(count::addAndGet);
     return count.get();
   }
 
-  public int getCalculatedStance(){
+  public int getCalculatedStance() {
     int stance = 0;
     stance += getCalcRetweetStance();
-    stance+=getCalcHashtagStance();
+    stance += getCalcHashtagStance();
     return stance;
   }
 
@@ -81,8 +80,8 @@ public class Vertex implements Comparable {
     this.setRetweetStance(this.getRetweetStance() + change);
   }
 
-  public void changeHashtagStance(int change){
-    this.setHashtagStance(this.getHashtagStance()+change);
+  public void changeHashtagStance(int change) {
+    this.setHashtagStance(this.getHashtagStance() + change);
   }
 
   @Override
@@ -110,30 +109,20 @@ public class Vertex implements Comparable {
     this.retweetNum = n;
   }
 
-  public int compareTo(Vertex genericThat) {
-    return Integer.compare(genericThat.retweetNum, this.retweetNum);
-  }
-
   @Override
-  public int compareTo(Object o) {
-    if (o.getClass().equals(this.getClass())) {
-      return this.compareTo((Vertex) o);
-    }
-    return 0;
+  public int compareTo(Vertex that) {
+    return Integer.compare(that.retweetNum, this.retweetNum);
   }
 
-  public void addHashtag(String hashtag){
-    if (listOfHashtags.containsKey(hashtag)){
-      listOfHashtags.replace(hashtag,listOfHashtags.get(hashtag), listOfHashtags.get(hashtag)+1);
+  public void addHashtag(String hashtag) {
+    if (listOfHashtags.containsKey(hashtag)) {
+      listOfHashtags.replace(hashtag, listOfHashtags.get(hashtag), listOfHashtags.get(hashtag) + 1);
     } else {
       listOfHashtags.put(hashtag, 1);
     }
   }
 
-  public String getName(){
+  public String getName() {
     return this.user;
   }
 }
-
-
-

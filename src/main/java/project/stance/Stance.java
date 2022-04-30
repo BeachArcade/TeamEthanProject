@@ -1,4 +1,4 @@
-package project.StanceAssigner;
+package project.stance;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,12 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import project.Graphs.TwitterGraph;
-import project.Vertexes.Vertex;
+
+import project.graphs.TwitterGraph;
+import project.vertices.Vertex;
 
 public class Stance {
-
-  private static TwitterGraph graph;
   private static ArrayList<Vertex> users = new ArrayList<>();
   private static final ArrayList<Evangelist> evangelists = new ArrayList<>();
   private static int currUser = 0;
@@ -25,7 +24,7 @@ public class Stance {
     TwitterGraph graph = new TwitterGraph();
     users = graph.getEvangelists(100);
 
-    //set up evangelists
+    // set up evangelists
     for (Vertex v : users) {
       System.out.print("Added: " + v.getData() + "\t\t");
       evangelists.add(new Evangelist(v.getData()));
@@ -56,18 +55,17 @@ public class Stance {
     System.out.println(
         "Starts here\n================================================================================================");
     // Listeners
-    ActionListener proAssign =
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            System.out.println(users.get(currUser).getName() + "[PRO]");
-            users.get(currUser).setRetweetStance(1000);
-            currUser++;
-            user.setText(users.get(currUser).getName());
-            currTweet = 0;
-            tweet.setText(evangelists.get(currUser).getTweets().get(0));
-          }
-        };
+    ActionListener proAssign = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        System.out.println(users.get(currUser).getName() + "[PRO]");
+        users.get(currUser).setRetweetStance(1000);
+        currUser++;
+        user.setText(users.get(currUser).getName());
+        currTweet = 0;
+        tweet.setText(evangelists.get(currUser).getTweets().get(0));
+      }
+    };
     ActionListener antiAssign = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {

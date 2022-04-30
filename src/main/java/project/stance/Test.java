@@ -1,4 +1,4 @@
-package project.StanceAssigner;
+package project.stance;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +14,8 @@ public class Test {
   public static void main(String[] args) throws FileNotFoundException {
 
     System.out.println("DO\tIT\tGRIP\t?".split("\t")[0]);
-    String[] words = {"Poop", "Someone", "Racecar Jesus", "Nine Finger Jeff", "Carrots", "Shroomy",
-        "Toes", "Pineapple", "Othello"};
+    String[] words = { "Poop", "Someone", "Racecar Jesus", "Nine Finger Jeff", "Carrots", "Shroomy",
+        "Toes", "Pineapple", "Othello" };
     // JFrame instance
     JFrame frame = new JFrame();
 

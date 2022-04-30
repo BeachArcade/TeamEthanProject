@@ -1,120 +1,123 @@
-package test.java.project;
+package project;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
-import project.Graphs.TwitterGraph;
-import project.Vertexes.Arc;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
+
+import project.graphs.TwitterGraph;
+import project.vertices.Arc;
+import project.vertices.TweetArc;
+import project.vertices.Vertex;
 
 public class GraphTest {
 
-  private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {{
-    // Add keys and values (username, stance)
-    put("@BernieSpofforth", -1000);
-    put("@JamesMelville", -1000);
-    put("@jackjohnsoniv7", 1000);
-    put("@GillianMcKeith", -1000);
-    put("@RealCandaceO", -1000);
-    put("@EssexPR", -1000);
-    put("@alanvibe", -1000);
-    put("@ginacarano", -1000);
-    put("@Togetherdec", -1000);
-    put("@catturd2", -1000);
-    put("@org_scp", -1000);
-    put("@BananaMediaQ", -1000);
-    put("@EU_Commission", 1000);
-    put("@JamesfWells", -1000);
-    put("@LozzaFox", -1000);
-    put("@djlange", -1000);
-    put("@gbrough10000", -1000);
-    put("@greenhousemd", 1000);
-    put("@TonyHinton2010006", -1000);
-    put("@CaoimhinFachtna", -1000);
-    put("@atensnut", -1000);
-    put("@ToniaBuxton", -1000);
-    put("@RealJamesWoods", -1000);
-    put("@profnfenton", -1000);
-    put("@VigilantFox", -1000);
-    put("@Karenlovecheese", 1000);
-    put("@mrjamesob", 1000);
-    put("@HumanRights4UK", -1000);
-    put("@PeterDooleyDUB", 1000);
-    put("@BKarahalios", -1000);
-    put("@DrHoenderkamp", -1000);
-    put("@RWMaloneMD", -1000);
-    put("@davidkurten", -1000);
-    put("@kernaghanscott5", -1000);
-    put("@danjgregory", -1000);
-    put("@HPVSideEffects", -1000);
-    put("@WhiteCoatWaste", -1000);
-    put("@mysteriouskat", 0);
-    put("@Eric_Schmitt", -1000);
-    put("@EliseiNicole", -1000);
-    put("@chiproytx", -1000);
-    put("@RefusenikExmoor", -1000);
-    put("@SolNataMD", 1000);
-    put("@JuliaHB1", -1000);
-    put("@SteveBakerHW", -1000);
-    put("@MaajidNawaz", -1000);
-    put("@Surabees", -1000);
-    put("@JT4USA", -1000);
-    put("@Jemmapalmer", 1000);
-    put("@SebGorka", -1000);
-    put("@michaelmalice", -1000);
-    put("@EricMMatheny", -1000);
-    put("@ian_charles007", 1000);
-    put("@Femi_Sorry", -1000);
-    put("@beverleyturner", -1000);
-    put("@laworfiction", -1000);
-    put("@Valkyrie20201", -1000);
-    put("@TomthunkitsMind", 1000);
-    put("@RWTaylors", -1000);
-    put("@PapiTrumpo", -1000);
-    put("@RpsAgainstTrump", 1000);
-    put("@realDailyWire", -1000);
-    put("@castterry73", -1000);
-    put("@CarlosSimancas", -1000);
-    put("@ChrisLoesch", -1000);
-    put("@ProtestNews_EN", -1000);
-    put("@Andy_In_The_UK", -1000);
-    put("@TheDemCoalition", 1000);
-    put("@bmay", 1000);
-    put("@TheVoxWolf", -1000);
-    put("@GeorginaLishma1", -1000);
-    put("@Arwenstar", -1000);
-    put("@parisofprairie", 1000);
-    put("@Zieleds", -1000);
-    put("@ProfessorFergu1", -1000);
-    put("@MattHoyOfficial", -1000);
-    put("@DrNeilStone", 1000);
-    put("@libertytarian", -1000);
-    put("@BuffyWicks", 1000);
-    put("@AmerAcadPeds", 1000);
-    put("@CarymaRules", 1000);
-    put("@taradublinrocks", 1000);
-    put("@NeilClark66", -1000);
-    put("@awareness_4all", -1000);
-    put("@bblock29", 1000);
-    put("@marcowenjones", 1000);
-    put("@mommamia1217", 1000);
-    put("@DrMadej", -1000);
-    put("@Lenabellalou", -1000);
-    put("@McGiff", -1000);
-    put("@NeverSleever", -1000);
-    put("@zoeharcombe", -1000);
-    put("@JeffreyPeel", -1000);
-    put("@AngelaBelcamino", -1000);
-    put("@BetteMidler", -1000);
-    put("@Rene4D45", -1000);
-    put("@BorisJohnson_MP", 1000);
-    put("@TheRightMelissa", -1000);
-    put("@Belondyy", -1000);
-    put("@richardcings", -1000);
-  }};
+  private final HashMap<String, Integer> evangeLists = new HashMap<String, Integer>() {
+    {
+      // Add keys and values (username, stance)
+      put("@BernieSpofforth", -1000);
+      put("@JamesMelville", -1000);
+      put("@jackjohnsoniv7", 1000);
+      put("@GillianMcKeith", -1000);
+      put("@RealCandaceO", -1000);
+      put("@EssexPR", -1000);
+      put("@alanvibe", -1000);
+      put("@ginacarano", -1000);
+      put("@Togetherdec", -1000);
+      put("@catturd2", -1000);
+      put("@org_scp", -1000);
+      put("@BananaMediaQ", -1000);
+      put("@EU_Commission", 1000);
+      put("@JamesfWells", -1000);
+      put("@LozzaFox", -1000);
+      put("@djlange", -1000);
+      put("@gbrough10000", -1000);
+      put("@greenhousemd", 1000);
+      put("@TonyHinton2010006", -1000);
+      put("@CaoimhinFachtna", -1000);
+      put("@atensnut", -1000);
+      put("@ToniaBuxton", -1000);
+      put("@RealJamesWoods", -1000);
+      put("@profnfenton", -1000);
+      put("@VigilantFox", -1000);
+      put("@Karenlovecheese", 1000);
+      put("@mrjamesob", 1000);
+      put("@HumanRights4UK", -1000);
+      put("@PeterDooleyDUB", 1000);
+      put("@BKarahalios", -1000);
+      put("@DrHoenderkamp", -1000);
+      put("@RWMaloneMD", -1000);
+      put("@davidkurten", -1000);
+      put("@kernaghanscott5", -1000);
+      put("@danjgregory", -1000);
+      put("@HPVSideEffects", -1000);
+      put("@WhiteCoatWaste", -1000);
+      put("@mysteriouskat", 0);
+      put("@Eric_Schmitt", -1000);
+      put("@EliseiNicole", -1000);
+      put("@chiproytx", -1000);
+      put("@RefusenikExmoor", -1000);
+      put("@SolNataMD", 1000);
+      put("@JuliaHB1", -1000);
+      put("@SteveBakerHW", -1000);
+      put("@MaajidNawaz", -1000);
+      put("@Surabees", -1000);
+      put("@JT4USA", -1000);
+      put("@Jemmapalmer", 1000);
+      put("@SebGorka", -1000);
+      put("@michaelmalice", -1000);
+      put("@EricMMatheny", -1000);
+      put("@ian_charles007", 1000);
+      put("@Femi_Sorry", -1000);
+      put("@beverleyturner", -1000);
+      put("@laworfiction", -1000);
+      put("@Valkyrie20201", -1000);
+      put("@TomthunkitsMind", 1000);
+      put("@RWTaylors", -1000);
+      put("@PapiTrumpo", -1000);
+      put("@RpsAgainstTrump", 1000);
+      put("@realDailyWire", -1000);
+      put("@castterry73", -1000);
+      put("@CarlosSimancas", -1000);
+      put("@ChrisLoesch", -1000);
+      put("@ProtestNews_EN", -1000);
+      put("@Andy_In_The_UK", -1000);
+      put("@TheDemCoalition", 1000);
+      put("@bmay", 1000);
+      put("@TheVoxWolf", -1000);
+      put("@GeorginaLishma1", -1000);
+      put("@Arwenstar", -1000);
+      put("@parisofprairie", 1000);
+      put("@Zieleds", -1000);
+      put("@ProfessorFergu1", -1000);
+      put("@MattHoyOfficial", -1000);
+      put("@DrNeilStone", 1000);
+      put("@libertytarian", -1000);
+      put("@BuffyWicks", 1000);
+      put("@AmerAcadPeds", 1000);
+      put("@CarymaRules", 1000);
+      put("@taradublinrocks", 1000);
+      put("@NeilClark66", -1000);
+      put("@awareness_4all", -1000);
+      put("@bblock29", 1000);
+      put("@marcowenjones", 1000);
+      put("@mommamia1217", 1000);
+      put("@DrMadej", -1000);
+      put("@Lenabellalou", -1000);
+      put("@McGiff", -1000);
+      put("@NeverSleever", -1000);
+      put("@zoeharcombe", -1000);
+      put("@JeffreyPeel", -1000);
+      put("@AngelaBelcamino", -1000);
+      put("@BetteMidler", -1000);
+      put("@Rene4D45", -1000);
+      put("@BorisJohnson_MP", 1000);
+      put("@TheRightMelissa", -1000);
+      put("@Belondyy", -1000);
+      put("@richardcings", -1000);
+    }
+  };
   private String[] arr = {
       "1447376265187676162	@wqbelle	RT @wqbelle: The enemy is us.  https://t.co/8sgqS2KF6h  from 2019: Yes, we are our own worst enemy. There's nobody else to blame!  #Covid #…",
       "1447376289338470405	@wqbelle	RT @wqbelle: To mask, or not to mask, that should not be a question.  https://t.co/Sa4xEjK9wp  I have to shake my head at all the protests…",
@@ -136,32 +139,36 @@ public class GraphTest {
       "1447376627474710535	@TanziaMill	@BkPhilanthropy #GetVaxxed"
   };
 
-  @Test
-  public void testVertex() {
-    String str =
-        "1447358807840075779	@Fz1Gabe	RT @JustLaElisa17: 🇳🇱 The Dutch rising against covid tyranny ⚡  #NoVaccineMandates  #NoVaccinePassports https://t.co/ADsfrakrvO";
-    String content =
-        "RT @JustLaElisa17: 🇳🇱 The Dutch rising against covid tyranny ⚡  #NoVaccineMandates  #NoVaccinePassports https://t.co/ADsfrakrvO";
-    Vertex v = new Vertex(str);
+  // @Test
+  // public void testVertex() {
+  // String str =
+  // "1447358807840075779 @Fz1Gabe RT @JustLaElisa17: 🇳🇱 The Dutch rising
+  // against covid tyranny ⚡ #NoVaccineMandates #NoVaccinePassports
+  // https://t.co/ADsfrakrvO";
+  // String content =
+  // "RT @JustLaElisa17: 🇳🇱 The Dutch rising against covid tyranny ⚡
+  // #NoVaccineMandates #NoVaccinePassports https://t.co/ADsfrakrvO";
+  // Vertex v = new Vertex(str);
+  // }
 
-  }
-
-  @Test
-  public void testArc() {
-    String str =
-        "1447358807840075779	@Fz1Gabe	RT @JustLaElisa17: 🇳🇱 The Dutch rising against covid tyranny ⚡  #NoVaccineMandates  #NoVaccinePassports https://t.co/ADsfrakrvO";
-    String user = "@JustLaElisa17";
-    String content =
-        "🇳🇱 The Dutch rising against covid tyranny ⚡  #NoVaccineMandates  #NoVaccinePassports https://t.co/ADsfrakrvO";
-    Vertex v = new Vertex(str);
-  }
+  // @Test
+  // public void testArc() {
+  // String str =
+  // "1447358807840075779 @Fz1Gabe RT @JustLaElisa17: 🇳🇱 The Dutch rising
+  // against covid tyranny ⚡ #NoVaccineMandates #NoVaccinePassports
+  // https://t.co/ADsfrakrvO";
+  // String user = "@JustLaElisa17";
+  // String content =
+  // "🇳🇱 The Dutch rising against covid tyranny ⚡ #NoVaccineMandates
+  // #NoVaccinePassports https://t.co/ADsfrakrvO";
+  // Vertex v = new Vertex(str);
+  // }
 
   @Test
   public void deleteThisWhenDone() {
     String tweet = "1447358807840075779	@Fz1Gabe	RT @JustLaElisa17: 🇳🇱 The Dutch rising against covid tyranny ⚡  #NoVaccineMandates  #NoVaccinePassports https://t.co/ADsfrakrvO";
     Vertex friend = new Vertex(tweet);
     HashMap<Vertex, Arc> map = new HashMap<>();
-    int i = 0;
     for (String s : arr) {
       Vertex v = new Vertex(s);
       map.put(v, new TweetArc("tttstasat"));
@@ -229,10 +236,10 @@ public class GraphTest {
 }
 
 /*
-addStance(int change) {
-  this.setStance(stance + change);
-}
-
-currentvertex.setStance(stance + change);
-
+ * addStance(int change) {
+ * this.setStance(stance + change);
+ * }
+ * 
+ * currentvertex.setStance(stance + change);
+ * 
  */

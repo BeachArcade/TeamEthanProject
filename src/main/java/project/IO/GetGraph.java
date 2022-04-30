@@ -1,9 +1,10 @@
-package project.IO;
+package project.io;
 
 import java.io.File;
 import java.io.IOException;
-import project.Graphs.TwitterGraph;
+
 import project.Lexicon;
+import project.graphs.TwitterGraph;
 
 public class GetGraph {
 

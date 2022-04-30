@@ -1,26 +1,28 @@
-package project.Vertexes;
+package project.vertices;
 
-import java.util.ArrayList;
+import java.util.Set;
+
+import project.Lexicon;
+
 import java.util.Objects;
 
 public class Hashtag {
-
   private final String tagName;
   private final int hashCode;
   private int stance = 0;
   private int numOfTweets = 0;
-  private ArrayList<Tag> tags;
+  private Set<Tag> tags;
 
   public Hashtag(String hashtag) {
     this.tagName = hashtag;
     this.hashCode = Objects.hashCode(hashtag);
   }
 
-  public ArrayList<Tag> getTags() {
+  public Set<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(ArrayList<Tag> tags) {
+  public void setTags(Set<Tag> tags) {
     this.tags = tags;
   }
 
@@ -36,14 +38,18 @@ public class Hashtag {
     this.stance = x;
   }
 
+  public boolean contains(Tag tag) {
+    return this.getName().toLowerCase().contains(tag.getName().toLowerCase());
+  }
+
+  public void calculateContainedTags(Lexicon lexicon) {
+    for (Tag tag : lexicon.getTags()) if (this.contains(tag)) this.tags.add(tag);
+  }
+
   public int getCalculatedStance() {
-
     int tweets = this.getNumOfTweets();
-
-    if (tweets == 0) { return this.stance; }
-
-    return (int) (tags.stream().mapToInt(Tag::getStance).sum() / (double)tweets);
-
+    if (tweets == 0) return this.stance;
+    return (int)(tags.stream().mapToInt(Tag::getStance).sum() / (double)tweets);
   }
 
   public void changeStance(int change) {
@@ -52,7 +58,7 @@ public class Hashtag {
 
 
   public int getNumOfTweets() {
-    return numOfTweets;
+    return this.numOfTweets;
   }
 
   public void setNumOfTweets(int n) {

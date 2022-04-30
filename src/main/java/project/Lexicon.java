@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import project.IO.Reader;
-import project.Vertexes.Tag;
+
+import project.io.Reader;
+import project.vertices.Tag;
 
 public class Lexicon {
 
@@ -26,12 +27,12 @@ public class Lexicon {
 
   public void addTag(String tag, String references) {
     // Check if the tag is already contained in the lexicon
-    if (tags.contains(new Tag(tag))){
+    if (tags.contains(new Tag(tag))) {
       // if so, add new references to the tag
       tags.get(tags.indexOf(new Tag(tag))).addReferences(references);
     } else {
       // Else add the new to the lexicon
-      this.tags.add(new Tag(tag,references));
+      this.tags.add(new Tag(tag, references));
     }
   }
 
@@ -39,7 +40,7 @@ public class Lexicon {
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("Lexicon{\n");
-    for (Tag tag: tags){
+    for (Tag tag : tags) {
       stringBuilder.append("\t").append(tag.toString()).append('\n');
     }
     stringBuilder.append('}');

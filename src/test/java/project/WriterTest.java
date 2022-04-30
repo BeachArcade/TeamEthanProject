@@ -6,8 +6,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import project.Graphs.TwitterGraph;
-import project.IO.Writer;
+
+import project.graphs.TwitterGraph;
+import project.io.Writer;
 
 class WriterTest {
   Writer writer;
@@ -27,6 +28,5 @@ class WriterTest {
     TwitterGraph twitterGraph = new TwitterGraph();
     writer.writeTwitterGraphToFile(twitterGraph);
   }
-
 
 }

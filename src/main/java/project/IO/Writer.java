@@ -1,4 +1,4 @@
-package project.IO;
+package project.io;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,11 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import project.Graphs.HashtagGraph;
-import project.Graphs.TwitterGraph;
-import project.Vertexes.Hashtag;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
+import project.vertices.Hashtag;
+import project.vertices.TweetArc;
+import project.vertices.Vertex;
+
+import project.graphs.TwitterGraph;
+import project.graphs.HashtagGraph;
 
 public class Writer {
 
@@ -39,11 +40,9 @@ public class Writer {
     }
   }
 
-
   public void writeHashtagGraphToFile(HashtagGraph hashtagGraph) throws IOException {
 
-
-   // TODO: Set writer to hashtag graph format
+    // TODO: Set writer to hashtag graph format
 
     for (Map.Entry<Hashtag, ArrayList<Vertex>> entry : hashtagGraph.getHashtagGraph().entrySet()) {
       StringBuilder stringBuilder = new StringBuilder();
@@ -60,9 +59,9 @@ public class Writer {
   }
 
   public void writeInvert(HashMap<Vertex, ArrayList<Hashtag>> graph) throws IOException {
-    for(Map.Entry<Vertex,ArrayList<Hashtag>> entry: graph.entrySet()){
+    for (Map.Entry<Vertex, ArrayList<Hashtag>> entry : graph.entrySet()) {
       String line = entry.getKey().getName() + " {";
-      for (Hashtag tag : entry.getValue()){
+      for (Hashtag tag : entry.getValue()) {
         line += tag.getName() + ", ";
       }
       bufferedWriter.append(line.substring(0, line.length() - 2) + "}");

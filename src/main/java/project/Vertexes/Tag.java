@@ -1,4 +1,4 @@
-package project.Vertexes;
+package project.vertices;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,9 +20,13 @@ public class Tag implements Comparable<Tag> {
     this.hashCode = Objects.hashCode(tag);
     addReferences(references);
 
-    if (this.references.contains("accepting")) { this.setStance(1); }
+    if (this.references.contains("accepting")) {
+      this.setStance(1);
+    }
 
-    if (this.references.contains("rejecting")){ this.setStance(-1); }
+    if (this.references.contains("rejecting")) {
+      this.setStance(-1);
+    }
   }
 
   public String getName() {
@@ -82,6 +86,6 @@ public class Tag implements Comparable<Tag> {
 
   @Override
   public String toString() {
-    return "'" + tagName + "'\t" + "{" +references.toString().replace("[","").replace("]","") + '}';
+    return "'" + tagName + "'\t" + "{" + references.toString().replace("[", "").replace("]", "") + '}';
   }
 }

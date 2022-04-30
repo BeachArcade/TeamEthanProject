@@ -1,10 +1,11 @@
-package project.StanceAssigner;
+package project.stance;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import project.IO.Reader;
-import project.Vertexes.Vertex;
+
+import project.io.Reader;
+import project.vertices.Vertex;
 
 public class Evangelist extends Vertex {
 
@@ -33,4 +34,3 @@ public class Evangelist extends Vertex {
     return tweets;
   }
 }
-
