@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import project.Lexicon;
-import project.Vertexes.Hashtag;
-import project.Vertexes.TweetArc;
-import project.Vertexes.Vertex;
+import project.vertices.Hashtag;
+import project.vertices.TweetArc;
+import project.vertices.Vertex;
 /*TODO:
  * */
 import project.io.Reader;
