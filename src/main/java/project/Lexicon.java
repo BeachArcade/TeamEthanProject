@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.io.Reader;
-import project.vertices.Tag;
+import project.IO.Reader;
+import project.Vertices.Tag;
 
 public class Lexicon {
 

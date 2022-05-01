@@ -1,4 +1,4 @@
-package project.vertices;
+package project.Vertices;
 
 /**
  * Arc interface

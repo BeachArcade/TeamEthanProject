@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import project.Lexicon;
-import project.vertices.Hashtag;
-import project.vertices.TweetArc;
-import project.vertices.Vertex;
-/*TODO:
- * */
-import project.io.Reader;
+import project.Vertices.Hashtag;
+import project.Vertices.TweetArc;
+import project.Vertices.Vertex;
+import project.IO.Reader;
 
 // !default direction is Up
 public class TwitterGraph implements Graph<TweetArc> {
@@ -150,12 +148,8 @@ public class TwitterGraph implements Graph<TweetArc> {
 
   public TwitterGraph(Lexicon lexicon) throws FileNotFoundException {
     this.lexicon = lexicon;
-    Reader userReader = new Reader(new File("VaxData/vax tweets users.txt"));
-    Reader tweetReader = new Reader(new File("VaxData/vax tweets.txt"));
-    // Reader userReader = new Reader(new File("VaxData/100VaxUsersTweets.txt")); //
-    // For Testing
-    // Reader tweetReader = new Reader(new File("VaxData/100VaxTweets.txt")); // For
-    // Testing
+    Reader userReader = new Reader(new File(Reader.USER_INPUT));
+    Reader tweetReader = new Reader(new File(Reader.TWEET_INPUT));
 
     userReader.populateUsers(this);
     tweetReader.populateArcs(this);
@@ -274,11 +268,13 @@ public class TwitterGraph implements Graph<TweetArc> {
     if (!adjVertices.containsKey(new Vertex(retweetUser))) {
       add(retweetUser);
       String[] tweetContent;
-      tweetContent = retweetUsersTweet.split("\t")[2].split(":")[1].split(" ");
-      for (String word : tweetContent) {
-        if (word.startsWith("#")) {
-          addHashtag(new Hashtag(word)); // Add hashtag to Graph
-          getVertex(new Vertex(retweetUser)).addHashtag(word); // Add hashtag to user
+      if(retweetUsersTweet.split("\t").length > 2) {
+        tweetContent = retweetUsersTweet.split("\t")[2].split(":")[1].split(" ");
+        for (String word : tweetContent) {
+          if (word.startsWith("#")) {
+            addHashtag(new Hashtag(word)); // Add hashtag to Graph
+            getVertex(new Vertex(retweetUser)).addHashtag(word); // Add hashtag to user
+          }
         }
       }
     }

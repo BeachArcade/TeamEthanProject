@@ -1,4 +1,4 @@
-package project.graphs;
+package project.Graphs;
 
 public enum Direction {
   UP,

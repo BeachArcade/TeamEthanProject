@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import project.io.Reader;
-import project.vertices.Vertex;
+import project.IO.Reader;
+import project.Vertices.Vertex;
 
 public class Evangelist extends Vertex {
 
